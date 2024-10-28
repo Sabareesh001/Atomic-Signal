@@ -5,10 +5,6 @@ export const pathSlicer = (path, sliceStart = 1) => path?.slice(sliceStart);
 
 const AllRoutes = [
   {
-    path: "/",
-    element: <Navigate to={PATH.Profile} />,
-  },
-  {
     path: PATH.Profile,
     element: <Profile />,
   },
@@ -23,6 +19,10 @@ const AllRoutes = [
   {
     path: PATH.Setting,
     element: <Settings />,
+  },
+  {
+    path: "/",
+    element: <Navigate to={PATH.Profile} />,
   },
 ];
 
