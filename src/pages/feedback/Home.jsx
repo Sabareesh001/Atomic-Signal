@@ -6,7 +6,7 @@ import Others from "./Others";
 import Title from "../../components/Title/Heading";
 import Searchstar from "../../components/Search/Search";
 import Filterstar from "../../components/Iconbutton/Filter";
-import Fromme from "./fromme";
+import Fromme from "./Fromme.jsx";
 import StyledButton from "../../components/button/Button";
 import { ImportIcon } from "../team/team.styles";
 
