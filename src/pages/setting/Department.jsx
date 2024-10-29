@@ -46,7 +46,7 @@ const Department = () => {
               setSearchQuery(e.target.value);
             }}
             placeholder={"Search by department name"}
-            minWidth={300}
+            minWidth={"10em"}
             fullWidth
             size="small"
           />
@@ -54,7 +54,7 @@ const Department = () => {
             onClick={() => {
               setIsAddDepartmentOpen(true);
             }}
-            sx={{ minWidth: "166px" }}
+            sx={{ minWidth: "11em" }}
             variant="contained"
           >
             Add department
@@ -101,12 +101,16 @@ const DepartmentHeader = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  flexWrap: "wrap",
+  rowGap: "10px",
 });
 
 const DepartmentHeaderTools = styled(Box)({
   display: "flex",
-  gap: "16px",
   alignItems: "center",
+  flexDirection: "row",
+  gap: "16px",
+  flexWrap: "wrap",
 });
 
 const AddDepartmentDrawerForm = () => {

@@ -20,6 +20,7 @@ import {
   AddDeleteButtonContainer,
   AddButton,
   DeleteButton,
+  SettingContainer,
 } from "./ProfileCard.styles";
 
 const ProfileCard = ({ isSetting = false, profilepage, ProfileData }) => {
@@ -62,10 +63,12 @@ const ProfileCard = ({ isSetting = false, profilepage, ProfileData }) => {
           src={profileImage || ""}
           variant="rounded"
         >
-          <Typography sx={{ fontSize: "50px" }}>
-            {" "}
-            {!profileImage && ProfileData?.userData?.name[0]}
-          </Typography>
+          {!isSetting && (
+            <Typography sx={{ fontSize: "50px" }}>
+              {" "}
+              {!profileImage && ProfileData?.userData?.name[0]}
+            </Typography>
+          )}
         </ProfileAvatar>
 
         {!isSetting && (
@@ -118,10 +121,10 @@ const ProfileCard = ({ isSetting = false, profilepage, ProfileData }) => {
       </ProfileInfoBox>
 
       {isSetting && (
-        <>
+        <SettingContainer>
           <Divider />
           <ResetPasswordContainer>Reset password</ResetPasswordContainer>
-        </>
+        </SettingContainer>
       )}
     </ProfileCardContainer>
   );

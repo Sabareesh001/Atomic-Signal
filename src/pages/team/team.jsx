@@ -162,7 +162,7 @@ const TeamPage = () => {
           </CheckBoxWithLabel>
 
           <SearchBox
-            minWidth={300}
+            minWidth={"10em"}
             value={searchQuery}
             onChange={(e) => {
               setSearchQuery(e.target.value);

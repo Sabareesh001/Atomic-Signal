@@ -2,6 +2,9 @@ import { styled, TextField } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 const SearchBox = styled((props) => (
   <TextField
+    sx={{
+      width: "auto",
+    }}
     slotProps={{
       input: {
         startAdornment: <SearchIcon />,
@@ -10,10 +13,11 @@ const SearchBox = styled((props) => (
     variant={"outlined"}
     {...props}
   />
-))(({ minWidth }) => ({
+))(({ minWidth, width }) => ({
   "& .MuiOutlinedInput-root": {
     background: "white",
     minWidth,
+    width,
     padding: "0",
     paddingLeft: "10px",
   },

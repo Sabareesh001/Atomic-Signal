@@ -10,6 +10,7 @@ import Department from "../../pages/setting/Department";
 import CollabrationIcon from "../../assets/icons/collabrating_circle.svg";
 import CollabrationIconMale from "../../assets/icons/collaborator_male.svg";
 import ManagerIcon from "../../assets/icons/manager.svg";
+import { PasswordContainer } from "./style";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -115,9 +116,9 @@ export default function BasicTabs(props) {
         <Department />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <Box margin={"24.5px"} width={"600px"}>
+        <PasswordContainer>
           <ProfileCard ProfileData={ProfileData} isSetting />
-        </Box>
+        </PasswordContainer>
       </CustomTabPanel>
     </Box>
   );

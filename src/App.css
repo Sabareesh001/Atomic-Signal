@@ -25,4 +25,5 @@
 
 #root {
   background-color: #f0f0f0;
+  --16px: 1rem;
 }

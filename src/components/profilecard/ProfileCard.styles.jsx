@@ -1,24 +1,33 @@
 import { Avatar, Box, styled, Typography, Button } from "@mui/material";
 
-const ProfileCardContainer = styled(Box)(({ width }) => ({
+const ProfileCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
   borderRadius: "8px",
-  width,
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 
-const ProfileInfoBox = styled(Box)({
-  height: "129px",
+const ProfileInfoBox = styled(Box)(({ theme }) => ({
+  height: "auto",
   display: "flex",
-  padding: "24px",
-  gap: "24px",
+  width: "100%",
+  [theme.breakpoints.up("xs")]: { flexDirection: "column" },
+  [theme.breakpoints.up("sm")]: { flexDirection: "row", gap: "1.5rem" },
   alignItems: "center",
   position: "relative",
-});
+  flexWrap: "wrap",
+  margin: "1.5rem",
+  borderRadius: "0.5rem",
+}));
 
-const ProfileAvatar = styled(Avatar)({
-  height: "120px",
-  width: "120px",
-});
+const ProfileAvatar = styled(Avatar)(({ theme }) => ({
+  height: "7.5rem",
+  width: "7.5rem",
+  [theme.breakpoints.up("sm")]: { marginLeft: "1.5rem" },
+}));
 
 const AddDeleteButtonContainer = styled(Box)({
   position: "absolute",
@@ -50,25 +59,31 @@ const ProfileIconsLabel = styled(Typography)({
   fontSize: "14px",
 });
 
-const ProfileInfoAndOthersContainer = styled(Box)({
+const ProfileInfoAndOthersContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  width: "100%",
   gap: "10px",
-});
+  [theme.breakpoints.up("sm")]: { marginRight: "1.5rem" },
+  flex: 1,
+}));
 
 const ProfileIconsAndLabelsContainer = styled(Box)({
   backgroundColor: "white",
   display: "flex",
+
   alignItems: "center",
   gap: "10px",
 });
 
-const UserNameAndPeriodOfServiceContainer = styled(Box)({
+const UserNameAndPeriodOfServiceContainer = styled(Box)(({ theme }) => ({
   display: "flex",
-  width: "100%",
   justifyContent: "space-between",
-});
+  [theme.breakpoints.up("xs")]: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  [theme.breakpoints.up("sm")]: { flexDirection: "row" },
+}));
 
 const OthersContainer = styled(Box)({
   display: "flex",
@@ -90,6 +105,10 @@ const ManagerAvatar = styled(Avatar)({
   width: "24px",
 });
 
+const SettingContainer = styled(Box)({
+  width: "100%",
+});
+
 export {
   ProfileCardContainer,
   ProfileInfoBox,
@@ -105,4 +124,5 @@ export {
   AddDeleteButtonContainer,
   AddButton,
   DeleteButton,
+  SettingContainer,
 };

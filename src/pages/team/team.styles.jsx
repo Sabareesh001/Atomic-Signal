@@ -12,12 +12,15 @@ const TeamMembersHeader = styled("div")({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  flexWrap: "wrap",
+  rowGap: "10px",
 });
 
 const TeamMembersPageTools = styled("div")({
   display: "flex",
   alignItems: "center",
   gap: "10px",
+  flexWrap: "wrap",
 });
 
 const ImportIcon = styled((props) => <img src={ImportIconSvg} {...props} />)(

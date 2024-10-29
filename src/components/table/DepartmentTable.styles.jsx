@@ -100,10 +100,11 @@ const StyledTableHead = styled(TableHead)({
 
 const StyledTableHeading = styled(TableCell)(({ minWidth }) => ({
   fontWeight: "500",
-  fontSize: "1.07em",
+  fontSize: "1rem",
   fontFamily: "Poppins",
   minWidth: "minmax(100,10)",
   position: "sticky",
+  textWrap: "nowrap",
   top: 0,
   backgroundColor: "white",
   zIndex: 1,
