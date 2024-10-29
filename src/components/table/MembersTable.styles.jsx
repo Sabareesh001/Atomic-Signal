@@ -156,7 +156,6 @@ const StickyHeading = styled(TableCell)({
   borderBottom: "none",
   minWidth: 190,
   backgroundColor: "white",
-  position: "sticky",
   bottom: 0,
   top: 0,
 });

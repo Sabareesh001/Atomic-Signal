@@ -7,7 +7,9 @@ import Feedback from "../../pages/setting/feedback";
 import ProfileCard from "../profilecard/ProfileCard";
 import { DepartmentTable } from "../table";
 import Department from "../../pages/setting/Department";
-
+import CollabrationIcon from "../../assets/icons/collabrating_circle.svg";
+import CollabrationIconMale from "../../assets/icons/collaborator_male.svg";
+import ManagerIcon from "../../assets/icons/manager.svg";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -61,7 +63,28 @@ export default function BasicTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  const ProfileData = {
+    userData: {
+      name: "Jennifer",
+      image: "",
+      period_of_service: "3 yrs 6 Mon",
+    },
+    others: [
+      {
+        name: "Human Resources",
+        icon: CollabrationIcon,
+      },
+      {
+        name: "Talent Manager",
+        icon: CollabrationIconMale,
+      },
+      {
+        image: "eded",
+        name: "Samuel Guererro",
+        icon: ManagerIcon,
+      },
+    ],
+  };
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -92,7 +115,9 @@ export default function BasicTabs(props) {
         <Department />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <ProfileCard isSetting />
+        <Box margin={"24.5px"}>
+          <ProfileCard ProfileData={ProfileData} isSetting />
+        </Box>
       </CustomTabPanel>
     </Box>
   );
