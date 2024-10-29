@@ -115,7 +115,7 @@ export default function BasicTabs(props) {
         <Department />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <Box margin={"24.5px"}>
+        <Box margin={"24.5px"} width={"600px"}>
           <ProfileCard ProfileData={ProfileData} isSetting />
         </Box>
       </CustomTabPanel>
