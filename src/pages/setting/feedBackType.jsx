@@ -4,25 +4,24 @@ import { useState } from "react";
 import { FeedBackTypes } from "../../components/feedbacktype/feedBackTypes";
 
 export default function FeedBack() {
+  const styles = styledItem();
   return (
-    <Grid2
-      sx={{ ...styledItem.parentGridSignalStyle, padding: 0, height: "85vh" }}
-    >
+    <Grid2 sx={{ ...styles.parentGridSignalStyle, padding: 0, height: "85vh" }}>
       <Grid2
         sx={{
-          ...styledItem.parentGridSignalStyle,
+          ...styles.parentGridSignalStyle,
           border: 0,
           margin: 0,
           overflowX: "auto",
         }}
       >
-        <Box sx={styledItem.parentBoxSignalStyle}>
-          <Typography sx={styledItem.headSignalStyle}>
+        <Box sx={styles.parentBoxSignalStyle}>
+          <Typography sx={styles.headSignalStyle}>
             Edit feedback structure type
           </Typography>
           <Button
             variant="contained"
-            sx={{ ...styledItem.signalButtonStyle, padding: "3px 20px" }}
+            sx={{ ...styles.signalButtonStyle, padding: "3px 20px" }}
           >
             Save
           </Button>

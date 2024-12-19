@@ -10,8 +10,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { addSignalBody, addSignalHead } from "./slices/signalsSlice";
 import DialogBox from "../../components/dialogBox/dialogBox";
+import { styledItem } from "./style";
 
 function Signals() {
+  const styles = styledItem();
   const BodyDatas = useSelector((state) => state.signalsBody);
 
   const dispatch = useDispatch();

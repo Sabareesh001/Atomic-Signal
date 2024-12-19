@@ -9,9 +9,10 @@ import "@fontsource/poppins/500.css";
 import "@fontsource/poppins/700.css";
 
 export default function Settings() {
+  const styles = styledItem();
   return (
     <Provider store={Store}>
-      <Grid2 sx={styledItem.tabsStyle}>
+      <Grid2 sx={styles.tabsStyle}>
         <BasicTabs />
       </Grid2>
     </Provider>

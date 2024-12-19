@@ -10,6 +10,7 @@ import CollabrationIcon from "../../assets/icons/collabrating_circle.svg";
 import CollabrationIconMale from "../../assets/icons/collaborator_male.svg";
 import ManagerIcon from "../../assets/icons/manager.svg";
 import { PasswordContainer } from "./style";
+import { styledItem } from "../../pages/setting/style";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,6 +58,7 @@ const theme = createTheme({
 
 export default function BasicTabs() {
   const [value, setValue] = useState(0);
+  const styles = styledItem();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -92,13 +94,7 @@ export default function BasicTabs() {
             onChange={handleChange}
             aria-label="basic tabs example"
             variant="scrollable"
-            sx={{
-              "& .MuiTabs-indicator": {
-                backgroundColor: "#665CD7",
-                height: "3px",
-                borderRadius: "2px 2px 0px 0px",
-              },
-            }}
+            sx={styles.StyledTabs}
           >
             <Tab label="Signals" {...a11yProps(0)} />
             <Tab label="Grading" {...a11yProps(1)} />
