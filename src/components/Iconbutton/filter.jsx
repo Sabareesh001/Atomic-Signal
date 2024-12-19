@@ -1,12 +1,12 @@
 import React from "react";
-import { Filter } from "./Style";
+import { Filter } from "./style";
 import { CiFilter } from "react-icons/ci";
 
 function Filterstar() {
   return (
     <Filter>
       <CiFilter />
-    </Filter>
+    </Filter> //it
   );
 }
 

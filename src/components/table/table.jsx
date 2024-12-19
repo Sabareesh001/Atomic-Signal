@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import Table from "@mui/material/Table";
-import { Box, TablePagination } from "@mui/material";
+import { Box, TablePagination, useTheme } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { stylesnew } from "./Style";
-import { StyledTableCell, StyledTableRow } from "./Style";
+import { stylesnew } from "./style";
+import { StyledTableCell, StyledTableRow } from "./style";
 
 function Tablesty({ Rowdata, Column, searchQuery }) {
+  const theme = useTheme();
+  const styles = stylesnew(theme);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -32,7 +34,7 @@ function Tablesty({ Rowdata, Column, searchQuery }) {
 
   return (
     <Box>
-      <Box sx={stylesnew.out}>
+      <Box sx={styles.out}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
@@ -63,7 +65,7 @@ function Tablesty({ Rowdata, Column, searchQuery }) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        sx={stylesnew.tablefooterc}
+        sx={{ ...styles.tablefooterc, paddingLeft: "100px" }}
       />
     </Box>
   );

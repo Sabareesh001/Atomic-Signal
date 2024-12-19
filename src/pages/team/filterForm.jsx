@@ -1,10 +1,10 @@
 import { useState } from "react";
-import StyledInputLabel from "../../components/inputLabel/InputLabel";
-import StyledSelect from "../../components/select/Select";
+import StyledInputLabel from "../../components/inputLabel/inputLabel";
+import StyledSelect from "../../components/select/select";
 import {
   StyledToggleButton,
   StyledToggleButtonGroup,
-} from "../../components/toggleButton/StyledToggleButton";
+} from "../../components/toggleButton/styledToggleButton";
 import { FilterFormContainer, FilterFormField } from "./team.styles";
 
 const roleFilters = ["Employee", "Manager", "Admin"];

@@ -2,8 +2,8 @@ import { Typography, useTheme } from "@mui/material";
 import { MembersTable } from "../../components/table";
 import StyledButton from "../../components/button/button";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import SearchBox from "../../components/searchBox/SearchBox";
-import CheckBox from "../../components/checkBox/CheckBox";
+import SearchBox from "../../components/searchBox/searchBox";
+import CheckBox from "../../components/checkBox/checkBox";
 import {
   TeamMembersContainer,
   TeamMembersHeader,
@@ -17,9 +17,9 @@ import {
 } from "./team.styles";
 
 import { useEffect, useState } from "react";
-import StyledDrawer from "../../components/drawer/Drawer";
-import FilterForm from "./FilterForm";
-import AddMembersDrawerForm from "./AddMemberForm";
+import StyledDrawer from "../../components/drawer/drawer";
+import FilterForm from "./filterForm";
+import AddMembersDrawerForm from "./addMemberForm";
 import ImportIconStyled from "../../assets/icons/import";
 import FilterSvg from "../../assets/icons/filter";
 const TeamPage = () => {

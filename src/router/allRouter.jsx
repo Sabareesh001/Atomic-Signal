@@ -1,7 +1,7 @@
 import { Profile, TeamPage, FeedbackPage, Settings } from "../pages";
 import AlmostThere from "../pages/onBoard/almostThere";
 import ForgotPassword from "../pages/onBoard/forgetPassword";
-import LogIn from "../pages/onBoard/login";
+import LogIn from "../pages/onBoard/logIn";
 import OnBoard from "../pages/onBoard/onBoard";
 import { ResetPage } from "../pages/onBoard/resetPage";
 import SignUp from "../pages/onBoard/signUp";

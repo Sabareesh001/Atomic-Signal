@@ -1,54 +1,82 @@
-import React from "react";
-import { useLocation, Link } from "react-router-dom";
-import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import PowerSettingsNewOutlinedIcon from "@mui/icons-material/PowerSettingsNewOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import ButtonNav from "../button/buttonNav";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { Box } from "@mui/material";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import packageJson from "../../../package.json";
+import ButtonNav from "../button/buttonNav";
 import {
+  LogoImage,
+  MenuIcon,
+  MobileMenu,
+  NavBox,
+  NotificationIcon,
   Sidebar,
   SidebarHeader,
   SidebarIcon,
-  LogoImage,
-  Version,
   SidebarMenu,
-  NavBox,
+  Version,
+  WebName,
 } from "./navBar.style";
-import packageJson from "../../../package.json";
 
 const VNavbar = () => {
   const location = useLocation();
   const WEBVersion = packageJson.version;
+  const [Hamburger, setHamburger] = useState(false);
+
+  const toggleHamburger = () => setHamburger((prev) => !prev);
 
   return (
     <Sidebar>
-      <SidebarHeader>
-        <SidebarIcon>
-          <LogoImage src="/AtomicSignal.png" alt="User Avatar" />
-        </SidebarIcon>
-        <Version>V {WEBVersion}</Version>
-      </SidebarHeader>
+      <Box sx={{ display: "flex" }}>
+        {Hamburger ? (
+          <MenuIcon onClick={toggleHamburger}>
+            <CloseOutlinedIcon
+              sx={{
+                padding: "12px 20px 5px",
+                color: "#f5f5f5",
+                fontSize: "30px",
+              }}
+            />
+          </MenuIcon>
+        ) : (
+          <MenuIcon onClick={toggleHamburger}>
+            <MenuOutlinedIcon
+              sx={{
+                padding: "12px 20px 5px",
+                color: "#f5f5f5",
+                fontSize: "30px",
+              }}
+            />
+          </MenuIcon>
+        )}
+        <SidebarHeader>
+          <SidebarIcon>
+            <LogoImage src="/AtomicSignal.png" alt="User Avatar" />
+          </SidebarIcon>
+          <Version>V {WEBVersion}</Version>
+        </SidebarHeader>
+        <WebName>Atomic Signals</WebName>
+      </Box>
 
-      <SidebarMenu my={1}>
+      {/* Normal Menu */}
+      <SidebarMenu>
         <NavBox>
           <ButtonNav
             to="/profile"
-            icon={<PersonOutlineOutlinedIcon />}
+            svgSrc="/profile.svg"
             label="Profile"
             active={location.pathname === "/profile"}
           />
           <ButtonNav
             to="/team"
-            icon={<GroupsOutlinedIcon />}
+            svgSrc="/team.svg"
             label="Team"
             active={location.pathname === "/team"}
           />
           <ButtonNav
             to="/feedback"
-            icon={<ChatOutlinedIcon />}
+            svgSrc="/feedback.svg"
             label="Feedback"
             active={location.pathname === "/feedback"}
           />
@@ -56,23 +84,47 @@ const VNavbar = () => {
         <NavBox>
           <ButtonNav
             to="/setting"
-            icon={<SettingsOutlinedIcon />}
+            svgSrc="/setting.svg"
             active={location.pathname === "/setting"}
           />
-          <ButtonNav icon={<NotificationsOutlinedIcon />} />
-          <ButtonNav
-            icon={
-              <PowerSettingsNewOutlinedIcon
-                style={{
-                  transform: "rotate(90deg)",
-                  color: "#F44F5A",
-                }}
-              />
-            }
-          />
+          <ButtonNav svgSrc="/notification.svg" />
+          <ButtonNav to="/login" svgSrc="/logout.svg" />
         </NavBox>
-        <ButtonNav icon={<NotificationsOutlinedIcon />} />
       </SidebarMenu>
+
+      {/* Mobile Menu */}
+      {Hamburger && (
+        <MobileMenu onClick={toggleHamburger}>
+          <ButtonNav
+            to="/profile"
+            svgSrc="/profile.svg"
+            label="Profile"
+            active={location.pathname === "/profile"}
+          />
+          <ButtonNav
+            to="/feedback"
+            svgSrc="/feedback.svg"
+            label="Feedback"
+            active={location.pathname === "/feedback"}
+          />
+          <ButtonNav
+            to="/team"
+            svgSrc="/team.svg"
+            label="Team"
+            active={location.pathname === "/team"}
+          />
+          <ButtonNav
+            to="/setting"
+            svgSrc="/setting.svg"
+            active={location.pathname === "/setting"}
+            label="Setting"
+          />
+          <ButtonNav to="/login" svgSrc="/logout.svg" label="Logout" />
+        </MobileMenu>
+      )}
+      <NotificationIcon>
+        <ButtonNav svgSrc="/notification.svg" />
+      </NotificationIcon>
     </Sidebar>
   );
 };

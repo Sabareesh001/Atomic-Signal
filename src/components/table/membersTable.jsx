@@ -1,55 +1,46 @@
+import { TableBody, TableRow, useTheme } from "@mui/material";
+import StyledInputLabel from "../inputLabel/inputLabel";
 import {
-  Avatar,
-  FormControl,
-  TableBody,
-  TableRow,
-  Typography,
-  useTheme,
-} from "@mui/material";
-import StyledInputLabel from "../inputLabel/InputLabel";
-import {
-  ReportingList,
-  TableDiv,
-  StyledTableContainer,
-  StyledBottomTableContainer,
-  StyledTablePagination,
-  StyledTableFooter,
-  StyledTableRow,
+  ActionContainer,
+  ActionContent,
+  ActionHeaderContainerSeparator,
+  ActionPaginationContainerSeparator,
+  ActionStickyContainerSeparator,
+  LightTooltip,
   MemberProfile,
   MoreTag,
+  PencilIcon,
+  ProfileAvatar,
+  ReportingList,
+  SignalList,
   SignalsAvatar,
+  StatusContainer,
+  StickyCell,
+  StickyHeading,
+  StyledBottomTableContainer,
+  StyledFormControl,
+  StyledTable,
+  StyledTableCell,
+  StyledTableContainer,
+  StyledTableFooter,
   StyledTableHead,
   StyledTableHeading,
-  StyledTableCell,
+  StyledTablePagination,
+  StyledTableRow,
+  TableDiv,
   ToolTipContent,
-  SignalList,
-  LightTooltip,
-  StickyHeading,
-  ProfileAvatar,
-  StickyCell,
-  PencilIcon,
-  ActionContainer,
-  ActionStickyContainerSeparator,
-  ActionPaginationContainerSeparator,
-  ActionHeaderContainerSeparator,
-  ActionContent,
-  StyledTable,
-  StyledFormControl,
-  StatusContainer,
-} from "./MembersTable.styles";
+} from "./membersTable.styles";
 
-import ReactSpeedometer from "react-d3-speedometer";
 import Table from "@mui/material/Table";
-import IOSSwitch from "../switch/Switch";
-import StyledButton from "../button/Button";
 import { useEffect, useState } from "react";
-import Drawer from "../drawer/Drawer";
-import StyledDrawer from "../drawer/Drawer";
-import StyledInput from "../input/Input";
-import StyledTextField from "../textField/TextField";
+import ReactSpeedometer from "react-d3-speedometer";
+import StyledButton from "../button/button";
+import StyledChip from "../chip/chip";
 import StyledDatePicker from "../datePicker/datePicker";
-import StyledSelect from "../select/Select";
-import StyledChip from "../chip/Chip";
+import StyledDrawer from "../drawer/drawer";
+import StyledSelect from "../select/select";
+import IOSSwitch from "../switch/switch";
+import StyledTextField from "../textField/textField";
 import { EmSizeMWeight, MSizeRWeight } from "../typography/typography";
 const MembersTableComponent = ({
   headings,

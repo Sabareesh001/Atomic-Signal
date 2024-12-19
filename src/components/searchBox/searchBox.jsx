@@ -1,4 +1,4 @@
-import { styled, TextField, useTheme } from "@mui/material";
+import { styled, TextField } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 const SearchBox = styled((props) => (
   <TextField

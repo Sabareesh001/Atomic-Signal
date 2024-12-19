@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import StyledTextField, { textFieldStyles } from "./TextField";
+import StyledTextField, { textFieldStyles } from "./textField";
 import { VscEye } from "react-icons/vsc";
 import { VscEyeClosed } from "react-icons/vsc";
 

@@ -1,5 +1,5 @@
-import DepartmentTableComponent from "./DepartmentTableComponent";
-import MembersTableComponent from "./MembersTable";
+import DepartmentTableComponent from "./departmentTablecomponent";
+import MembersTableComponent from "./membersTable";
 import SignalTableComponent from "./signalsTable";
 
 const MembersTableHeadings = [

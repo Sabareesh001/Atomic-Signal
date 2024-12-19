@@ -1,9 +1,9 @@
-import StyledChip from "../../components/chip/Chip";
-import StyledDatePicker from "../../components/datePicker/DatePicker";
-import StyledInputLabel from "../../components/inputLabel/InputLabel";
-import StyledSelect from "../../components/select/Select";
-import { StyledFormControl } from "../../components/table/DepartmentTable.styles";
-import StyledTextField from "../../components/textField/TextField";
+import StyledChip from "../../components/chip/chip";
+import StyledDatePicker from "../../components/datePicker/datePicker";
+import StyledInputLabel from "../../components/inputLabel/inputLabel";
+import StyledSelect from "../../components/select/select";
+import { StyledFormControl } from "../../components/table/departmentTable.styles";
+import StyledTextField from "../../components/textField/textField";
 
 const AddMembersDrawerForm = () => {
   return (

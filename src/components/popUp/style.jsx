@@ -1,6 +1,6 @@
-import { Dialog, styled } from "@mui/material";
+import { Avatar, Box, Dialog, styled } from "@mui/material";
 
-export const Dialogue = styled(Dialog)(() => ({
+export const Dialogue = styled(Dialog)(({ theme, width, height }) => ({
   "& .MuiDialogContent-root": {
     padding: 0,
     height: "100%",
@@ -11,62 +11,98 @@ export const Dialogue = styled(Dialog)(() => ({
     padding: 0,
   },
   "& .MuiPaper-root": {
-    height: "400px",
-    width: "500px",
+    height: typeof height === "string" ? height : `${height}px`,
+    width: typeof width === "string" ? width : `${width}px`,
+    minHeight: "400px",
+    minWidth: "500px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    "& .MuiPaper-root": {
+      minWidth: "330px",
+      height: "auto",
+    },
   },
 }));
 
-export const stylesnew = {
-  head: {
-    height: "63px",
-    padding: "0 24px",
-    display: "flex",
-    alignItems: "center",
-    color: "View feedback",
-    fontWeight: "600",
-    justifyContent: "space-between",
-    borderBottom: "1px solid #CACACA ",
-  },
+export const Photo = styled(Avatar)(({ theme }) => ({
+  width: 35,
+  height: 35,
+}));
 
+export const Popuphead = styled(Box)(({ theme }) => ({
+  height: "63px",
+  padding: "0 24px",
+  display: "flex",
+  alignItems: "center",
+  color: theme.palette.text.default,
+  fontWeight: theme.typography.fontWeight.semiBold,
+  justifyContent: "space-between",
+  borderBottom: `1px solid ${theme.palette.secondary.disabledOutline}`,
+}));
+
+export const Profile = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.onBoard,
+  height: "53px",
+  borderRadius: "4px 4px 0px 0px",
+  display: "flex",
+  fontWeight: theme.typography.fontWeight.semiBold,
+  // width: "436px",
+  padding: "0 8px",
+  alignItems: "center",
+  gap: "10px",
+}));
+
+export const Profileothers = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.onBoard,
+  height: "53px",
+  borderRadius: "4px 4px 0px 0px",
+  display: "flex",
+  fontWeight: theme.typography.fontWeight.semiBold,
+  // width: "436px",
+  padding: "0 8px",
+  alignItems: "center",
+  gap: "10px",
+  justifyContent: "space-between",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    alignItems: "start",
+    height: "125px",
+    padding: "10px 8px",
+  },
+}));
+
+export const Body = styled(Box)(({ theme }) => ({
+  padding: "16px 24px",
+}));
+
+export const stylesnew = (theme) => ({
   flex: {
     display: "flex",
     alignItems: "center",
     gap: "8px",
   },
 
-  body: {
-    padding: "24px",
-  },
-
   cross: {
-    fontSize: "30px",
+    fontSize: theme.typography.fontSize.extraLarge,
     cursor: "pointer",
   },
 
-  profile: {
-    backgroundColor: "#EFEEFB",
-    height: "53px",
-    borderRadius: "4px 4px 0px 0px",
-    display: "flex",
-    fontWeight: "600",
-    width: "436px",
-    padding: "0 8px",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-
   feed: {
-    backgroundColor: "#FFFFFF",
-    border: "1px solid #EBEBEB",
+    backgroundColor: theme.palette.background.primary,
+    border: `1px solid ${theme.palette.secondary.disabledOutline}`,
     height: "40px",
     borderRadius: "0 0 4px 4px",
-    fontSize: "14ps",
-    color: "#484759",
+    fontSize: theme.typography.fontSize.small,
+    color: theme.palette.text.label,
     display: "flex",
     padding: "0 8px",
-    width: "435px",
+    // width: "435px",
     alignItems: "center",
     justifyContent: "space-between",
+    [theme.breakpoints.down("sm")]: {
+      height: "50px",
+    },
   },
 
   photo: {
@@ -74,52 +110,93 @@ export const stylesnew = {
     height: 27,
   },
 
-  photo1: {
-    width: 35,
-    height: 35,
+  desi: {
+    color: theme.palette.text.secondary,
+    fontSize: theme.typography.fontSize.verySmall,
+    fontWeight: theme.typography.fontWeight.medium,
   },
 
-  desi: {
-    color: "#71707E",
-    fontSize: "13px",
-    fontWeight: "500",
+  arrow: {
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "center",
+      width: "100%",
+    },
+  },
+
+  icon1: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+
+  icon2: {
+    display: "none",
+
+    [theme.breakpoints.down("sm")]: {
+      display: "block",
+      color: "#B9B9B9",
+    },
+  },
+
+  fli: {
+    justifyContent: "space-between",
+    width: "90%",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignItems: "start",
+      height: "40px",
+      gap: "0",
+    },
   },
 
   desi1: {
-    color: "#3D3D3D",
-    fontWeight: "600",
+    color: theme.palette.text.default,
+    fontWeight: theme.typography.fontWeight.semiBold,
   },
 
   res: {
-    fontSize: "14px",
-    fontWeight: "600",
+    fontSize: theme.typography.fontSize.small,
+    fontWeight: theme.typography.fontWeight.semiBold,
     marginTop: "12px",
     width: "100%",
     justifyContent: "space-between",
     display: "flex",
   },
 
+  block: {
+    display: "flex",
+    width: "95%",
+    justifyContent: "space-between",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignItems: "start",
+    },
+  },
+
   respon: {
-    color: "#71707E",
+    color: theme.palette.text.secondary,
     marginTop: "7px",
     height: "41px",
-    fontSize: "14px",
+    fontSize: theme.typography.fontSize.small,
   },
+
   respon1: {
-    color: "#71707E",
+    color: theme.palette.text.secondary,
     marginTop: "5px",
-    fontSize: "14px",
+    fontSize: theme.typography.fontSize.small,
   },
 
   dash: {
-    borderTop: "2px dashed #B9B9B9",
+    borderTop: `2px dashed ${theme.palette.secondary.disable}`,
     marginTop: "15px",
   },
 
   tick: {
-    color: "#25C460",
-    fontSize: "18px",
+    color: theme.palette.text.tick,
+    fontSize: theme.typography.fontSize.medium,
     display: "flex",
+    marginRight: "10px",
     alignItems: "center",
   },
-};
+});

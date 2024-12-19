@@ -15,7 +15,7 @@ import ProfileCard from "../../components/profileCard/profileCard";
 import CollabrationIconMale from "../../assets/icons/collaborator_male.svg";
 import CollabrationIcon from "../../assets/icons/collabrating_circle.svg";
 import ManagerIcon from "../../assets/icons/manager.svg";
-import FeedbackCard from "./feedbackprofile";
+import FeedbackCard from "./feedbackProfile";
 
 const performanceDescriptions = {
   1: "Completely away",

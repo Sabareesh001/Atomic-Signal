@@ -1,1 +1,1 @@
-export * from "./iosswitch";
+export * from "./iosSwitch";

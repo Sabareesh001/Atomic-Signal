@@ -1,13 +1,13 @@
 import { Box, styled, Typography } from "@mui/material";
 import { DepartmentTable } from "../../components/table";
 import { useState } from "react";
-import SearchBox from "../../components/searchBox/SearchBox";
+import SearchBox from "../../components/searchBox/searchBox";
 import StyledButton from "../../components/button/button";
-import StyledDrawer from "../../components/drawer/Drawer";
-import { StyledFormControl } from "../../components/table/DepartmentTable.styles";
-import StyledInputLabel from "../../components/inputLabel/InputLabel";
-import StyledTextField from "../../components/textField/TextField";
-import StyledTextArea from "../../components/textArea/StyledTextArea";
+import StyledDrawer from "../../components/drawer/drawer";
+import { StyledFormControl } from "../../components/table/departmentTable.styles";
+import StyledInputLabel from "../../components/inputLabel/inputLabel";
+import StyledTextField from "../../components/textField/textField";
+import StyledTextArea from "../../components/textArea/styledTextArea";
 
 const Department = () => {
   const [searchQuery, setSearchQuery] = useState("");

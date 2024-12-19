@@ -37,6 +37,8 @@ export const lightTheme = {
       disabledOutline: "#EBEBEB",
       disable: "#B9B9B9",
       textColor: "#FFFFFF",
+      tableoutline: "#E6E6E6",
+      search: "#CACACA",
     },
     text: {
       default: "#353448",
@@ -45,6 +47,7 @@ export const lightTheme = {
       danger: "#F44F5A",
       label: "#484759",
       placeholder: "#C2C1C7",
+      tick: "#25C460",
     },
     error: {
       main: "#F44F5A",

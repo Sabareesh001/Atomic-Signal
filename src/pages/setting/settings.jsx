@@ -1,5 +1,5 @@
 import { Grid2 } from "@mui/material";
-import BasicTabs from "../../components/tabBar/tabbar";
+import BasicTabs from "../../components/tabBar/tabBar";
 import { styledItem } from "./style";
 import { Provider } from "react-redux";
 import Store from "./store";

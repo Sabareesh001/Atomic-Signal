@@ -1,5 +1,5 @@
 import { TableBody, TableRow } from "@mui/material";
-import StyledInputLabel from "../inputLabel/InputLabel";
+import StyledInputLabel from "../inputLabel/inputLabel";
 import {
   TableDiv,
   StyledTableContainer,
@@ -21,13 +21,13 @@ import Table from "@mui/material/Table";
 import IosSwitch from "../switch/iosSwitch";
 import PencilIconSvg from "../../assets/icons/pencil";
 import { useEffect, useRef, useState } from "react";
-import StyledDrawer from "../drawer/Drawer";
-import StyledTextField from "../textField/TextField";
+import StyledDrawer from "../drawer/drawer";
+import StyledTextField from "../textField/textField";
 import { useDispatch, useSelector } from "react-redux";
 import {
   handleActiveButton,
   replaceSignalBody,
-} from "../../pages/setting/slices/signalsSlice";
+} from "../../pages/setting/slices/signalsslice";
 
 const SignalTableComponent = ({
   headings,

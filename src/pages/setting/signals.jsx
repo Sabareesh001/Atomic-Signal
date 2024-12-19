@@ -1,14 +1,14 @@
 import { Box, InputBase, styled, TextField, Typography } from "@mui/material";
 import { SignalTable } from "../../components/table";
 import { useState, useRef, useEffect } from "react";
-import StyledDrawer from "../../components/drawer/Drawer";
-import { StyledFormControl } from "../../components/table/DepartmentTable.styles";
-import StyledInputLabel from "../../components/inputLabel/InputLabel";
-import StyledTextField from "../../components/textField/TextField";
-import StyledTextArea from "../../components/textArea/StyledTextArea";
+import StyledDrawer from "../../components/drawer/drawer";
+import { StyledFormControl } from "../../components/table/departmentTable.styles";
+import StyledInputLabel from "../../components/inputLabel/inputLabel";
+import StyledTextField from "../../components/textField/textField";
+import StyledTextArea from "../../components/textArea/styledTextArea";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
-import { addSignalBody, addSignalHead } from "./slices/signalsSlice";
+import { addSignalBody, addSignalHead } from "./slices/signalsslice";
 import DialogBox from "../../components/dialogBox/dialogBox";
 import { styledItem } from "./style";
 

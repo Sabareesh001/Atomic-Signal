@@ -63,6 +63,9 @@ const DeleteButton = styled(Box)({
 const ProfileName = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.fontSize.extraLarge,
   fontWeight: theme.typography.fontWeight.semiBold,
+  [theme.breakpoints.down("sm")]: {
+    marginTop: "30px",
+  },
 }));
 
 const ProfileIconsLabel = styled(Typography)(({ theme }) => ({
@@ -75,15 +78,15 @@ const ProfileInfoAndOthersContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "10px",
-  [theme.breakpoints.up("sm")]: { marginRight: "1.5rem" },
+  [theme.breakpoints.down("sm")]: {},
   flex: 1,
+  width: "100%",
 }));
 
 const ProfileIconsAndLabelsContainer = styled(Box)({
   backgroundColor: "white",
   display: "flex",
-
-  alignItems: "center",
+  alignItems: "left",
   gap: "10px",
 });
 
@@ -97,11 +100,16 @@ const UserNameAndPeriodOfServiceContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: { flexDirection: "row" },
 }));
 
-const OthersContainer = styled(Box)({
+const OthersContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  justifyContent: "start",
   gap: "12px",
-});
+  paddingLeft: "0px",
+  [theme.breakpoints.down("sm")]: {
+    paddingLeft: "20px",
+  },
+}));
 
 const ResetPasswordContainer = styled(Box)(({ theme }) => ({
   height: "20px",

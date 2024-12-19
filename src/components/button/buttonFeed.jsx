@@ -1,9 +1,11 @@
-import { Button } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import React from "react";
 import { stylesnew } from "./style";
 
 function Buttonsty({ reminder, text }) {
-  return <Button sx={stylesnew.button(reminder)}>{text}</Button>;
+  const theme = useTheme();
+  const styles = stylesnew(theme);
+  return <Button sx={styles.button(reminder)}>{text}</Button>;
 }
 
 export default Buttonsty;

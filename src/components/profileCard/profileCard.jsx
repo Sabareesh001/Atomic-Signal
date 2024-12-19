@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Avatar, Box, Divider, Typography } from "@mui/material";
-import StyledChip from "../chip/Chip";
-import StyledSvgIcon from "../svgicon/SvgIcon";
-import LinkedCameraOutlinedIcon from "@mui/icons-material/LinkedCameraOutlined";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { Avatar, Divider, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import StyledChip from "../chip/chip";
+import StyledSvgIcon from "../svgIcon/svgIcon";
 
+import { LightTooltip, ToolTipContent } from "../table/membersTable.styles";
 import {
+  AddButton,
+  AddDeleteButtonContainer,
+  DeleteButton,
+  LabelWithAvatarContainer,
   ManagerAvatar,
   OthersContainer,
   ProfileAvatar,
@@ -17,14 +20,9 @@ import {
   ProfileInfoBox,
   ProfileName,
   ResetPasswordContainer,
-  UserNameAndPeriodOfServiceContainer,
-  AddDeleteButtonContainer,
-  AddButton,
-  DeleteButton,
   SettingContainer,
-  LabelWithAvatarContainer,
-} from "./ProfileCard.styles";
-import { LightTooltip, ToolTipContent } from "../table/MembersTable.styles";
+  UserNameAndPeriodOfServiceContainer,
+} from "./profileCard.styles";
 
 const ProfileCard = ({ isSetting = false, profilepage, ProfileData }) => {
   const [profileImage, setProfileImage] = useState("");
@@ -66,7 +64,6 @@ const ProfileCard = ({ isSetting = false, profilepage, ProfileData }) => {
             variant="rounded"
           >
             <Typography sx={{ fontSize: "50px", color: "#484759" }}>
-              {" "}
               {!profileImage && ProfileData.userData.name[0]}
             </Typography>
           </ProfileAvatar>
@@ -120,7 +117,7 @@ const ProfileCard = ({ isSetting = false, profilepage, ProfileData }) => {
                   fontSize={"0.8em"}
                   title={
                     <ToolTipContent>
-                      <div>hgjhdfg</div>
+                      <div>H</div>
                     </ToolTipContent>
                   }
                   arrow
@@ -143,10 +140,10 @@ const ProfileCard = ({ isSetting = false, profilepage, ProfileData }) => {
       </ProfileInfoBox>
 
       {isSetting && (
-        <>
+        <SettingContainer>
           <Divider />
           <ResetPasswordContainer>Reset password</ResetPasswordContainer>
-        </>
+        </SettingContainer>
       )}
     </ProfileCardContainer>
   );

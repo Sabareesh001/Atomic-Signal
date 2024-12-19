@@ -3,7 +3,7 @@ import { styledItem } from "./style";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Chart from "../profile/chart";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFeedBackType } from "./slices/feedbackSlice";
+import { removeFeedBackType } from "./slices/feedbackslice";
 
 export function Grading() {
   const feedBack = useSelector((state) => state.feedBackType);

@@ -1,4 +1,4 @@
-export const stylesnew = {
+export const stylesnew = (theme) => ({
   button: (reminder) => ({
     backgroundColor: reminder === "no" ? "#B9B9B9" : "#49C792",
     borderRadius: "4px",
@@ -9,4 +9,4 @@ export const stylesnew = {
     textTransform: "none",
     minWidth: "68px",
   }),
-};
+});

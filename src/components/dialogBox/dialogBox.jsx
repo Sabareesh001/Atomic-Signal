@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import AlertIconSvg from "../../assets/icons/alerticon";
 import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
-import { handleDeactiveBox } from "../../pages/setting/slices/signalsSlice";
+import { handleDeactiveBox } from "../../pages/setting/slices/signalsslice";
 import { styledItem } from "../../pages/setting/style";
 
 export default function DialogBox({ color, bgcolor, border, open }) {

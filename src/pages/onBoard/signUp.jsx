@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import GoogleIcon from "../../assets/icons/google";
 import OutlookIcon from "../../assets/icons/outlook";
 import {
@@ -20,24 +21,21 @@ import {
   SSOButton,
   SSOContainer,
 } from "./signUp.styles";
-import StyledInputLabel from "../../components/inputLabel/InputLabel";
-import StyledTextField from "../../components/textField/TextField";
+import StyledInputLabel from "../../components/inputLabel/inputLabel";
+import StyledTextField from "../../components/textField/textField";
 import StyledButton from "../../components/button/button";
-import { useDispatch, useSelector } from "react-redux";
-import { updateSignUp } from "../../slice/onBoard";
 
 const SignUp = () => {
-  const dispatch = useDispatch();
-  const email = useSelector((state) => state.onBoard.signUpData.email);
+  const [email, setEmail] = useState("");
 
   const handleInputChange = (e) => {
-    dispatch(updateSignUp({ email: e.target.value }));
+    setEmail(e.target.value);
   };
 
   const handleSignUp = () => {
-    // Dispatch action to submit signup form (e.g., API call)
     console.log("Signing up with email:", email);
   };
+
   return (
     <OnBoard
       children={

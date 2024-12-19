@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import StyledInputLabel from "../inputLabel/InputLabel";
+import StyledInputLabel from "../inputLabel/inputLabel";
 import {
   TableDiv,
   StyledTableContainer,
@@ -25,14 +25,14 @@ import {
   StyledFormControl,
   PencilIconContainer,
   ActiveContainer,
-} from "./DepartmentTable.styles";
+} from "./departmentTable.styles";
 
 import Table from "@mui/material/Table";
-import IOSSwitch from "../switch/Switch";
+import IOSSwitch from "../switch/switch";
 import { useEffect, useState } from "react";
-import StyledDrawer from "../drawer/Drawer";
-import StyledTextField from "../textField/TextField";
-import StyledTextArea from "../textArea/StyledTextArea";
+import StyledDrawer from "../drawer/drawer";
+import StyledTextField from "../textField/textField";
+import StyledTextArea from "../textArea/styledTextArea";
 import { EmSizeMWeight, MSizeRWeight } from "../typography/typography";
 import PencilIconSvg from "../../assets/icons/pencil";
 const DepartmentTableComponent = ({

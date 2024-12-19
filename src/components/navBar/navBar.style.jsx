@@ -8,17 +8,13 @@ export const Sidebar = styled(Box)(({ theme }) => ({
   alignItems: "center",
   height: "72px",
   width: "100vw ",
-  [theme.breakpoints.up("xs")]: {
-    height: "72px",
-    width: "100vw ",
-    flexDirection: "row",
-  },
+  justifyContent: "space-between",
+  backgroundColor: theme.palette.background.navbgcolor,
   [theme.breakpoints.up("sm")]: {
     width: "72px",
     height: "100vh ",
     flexDirection: "column",
   },
-  backgroundColor: theme.palette.background.navbgcolor,
 }));
 export const NavBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -28,11 +24,16 @@ export const NavBox = styled(Box)(({ theme }) => ({
 
 export const SidebarHeader = styled(Box)(({ theme }) => ({
   display: "flex",
-  flexDirection: "column",
   alignItems: "center",
-  marginTop: "25px",
-  borderBottom: "1px solid #ccc",
-  paddingBottom: "20px",
+  width: "45px",
+  flexDirection: "column",
+  justifyContent: "center",
+  borderBottom: "none",
+  [theme.breakpoints.up("sm")]: {
+    paddingBottom: "15px",
+    marginTop: "20px",
+    borderBottom: "1px solid #ccc",
+  },
 }));
 
 export const SidebarIcon = styled(Typography)(({ theme }) => ({
@@ -45,13 +46,25 @@ export const LogoImage = styled(Avatar)(({ theme }) => ({
   width: "100%",
   height: "100%",
 }));
-
+export const WebName = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+  [theme.breakpoints.down("sm")]: {
+    display: "inline",
+    color: theme.palette.background.primary,
+    padding: "15px 8px",
+    fontSize: theme.typography.fontSize.medium,
+  },
+}));
 export const Version = styled(Typography)(({ theme }) => ({
   marginTop: "5px",
   fontSize: theme.typography.fontSize.verySmall,
   color: "#ebebeb",
-  [theme.breakpoints.up("xs")]: { display: "none" },
-  [theme.breakpoints.up("sm")]: { display: "block" },
+  display: "block",
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
 }));
 
 export const SidebarMenu = styled(Box)(({ theme }) => ({
@@ -62,4 +75,33 @@ export const SidebarMenu = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   justifyContent: "space-between",
   addingBottom: "15px",
+}));
+export const MenuIcon = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+  [theme.breakpoints.down("sm")]: {
+    display: "inline",
+  },
+}));
+
+export const MobileMenu = styled(Box)(({ theme }) => ({
+  position: "absolute",
+  top: "71px",
+  left: "0",
+  width: "100%",
+  backgroundColor: theme.palette.background.navbgcolor,
+  display: "flex",
+  flexDirection: "column",
+  padding: "15px 20px",
+  zIndex: 10,
+}));
+export const NotificationIcon = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+  [theme.breakpoints.down("sm")]: {
+    display: "inline",
+    marginTop: "30px",
+  },
 }));

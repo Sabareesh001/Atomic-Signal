@@ -1,11 +1,14 @@
 import React from "react";
 import { IoIosSearch } from "react-icons/io";
-import { Searchbar, Search, stylesnew } from "./Styles";
+import { Searchbar, Search, stylesnew } from "./styles";
+import { useTheme } from "@mui/styles";
 
 function Searchstar({ searchQuery, setSearchQuery }) {
+  const theme = useTheme();
+  const styles = stylesnew(theme);
   return (
     <Search>
-      <IoIosSearch style={stylesnew.searchicon} />
+      <IoIosSearch style={styles.searchicon} />
       <Searchbar>
         <input
           className="search"
