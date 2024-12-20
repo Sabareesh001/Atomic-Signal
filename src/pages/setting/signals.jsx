@@ -35,14 +35,17 @@ function Signals() {
       year: "numeric",
     });
 
-    addSignalBodys({
-      signal: inputRef.current.value,
-      cday: day,
-      ctime: time,
-      mtime: time,
-      mday: day,
-      status: true,
-    });
+    const SignalName = inputRef.current.value.trim();
+    if (SignalName) {
+      addSignalBodys({
+        signal: SignalName,
+        cday: day,
+        ctime: time,
+        mtime: time,
+        mday: day,
+        status: true,
+      });
+    }
     setIsAddSignalsOpen(false);
   }
 
