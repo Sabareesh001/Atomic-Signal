@@ -42,7 +42,7 @@ function Signals() {
         ctime: time,
         mtime: time,
         mday: day,
-        status: 1,
+        status: true,
       })
     );
     setIsAddSignalsOpen(false);

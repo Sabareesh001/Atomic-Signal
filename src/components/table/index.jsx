@@ -1,6 +1,8 @@
+import { useStore } from "zustand";
 import DepartmentTableComponent from "./departmentTablecomponent";
 import MembersTableComponent from "./membersTable";
 import SignalTableComponent from "./signalsTable";
+import { settingStore } from "../../zustand/settings/store";
 
 const MembersTableHeadings = [
   "Name",
@@ -23,6 +25,8 @@ const DepartmentTableHeadings = [
   "Status",
   "Action",
 ];
+const Datas = settingStore((state) => state.HeadDatas);
+// console.log(Datas)
 const SignalTableHeadings = [
   { heading: "S.No", position: "relative" },
   { heading: "Signal name", position: "relative" },
