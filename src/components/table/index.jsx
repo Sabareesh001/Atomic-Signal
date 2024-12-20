@@ -1,8 +1,6 @@
-import { useStore } from "zustand";
 import DepartmentTableComponent from "./departmentTablecomponent";
 import MembersTableComponent from "./membersTable";
 import SignalTableComponent from "./signalsTable";
-import { settingStore } from "../../zustand/settings/store";
 
 const MembersTableHeadings = [
   "Name",
@@ -24,16 +22,6 @@ const DepartmentTableHeadings = [
   "Modified on",
   "Status",
   "Action",
-];
-const Datas = settingStore((state) => state.HeadDatas);
-// console.log(Datas)
-const SignalTableHeadings = [
-  { heading: "S.No", position: "relative" },
-  { heading: "Signal name", position: "relative" },
-  { heading: "Created on", position: "relative" },
-  { heading: "Modified on", position: "relative" },
-  { heading: "Status", position: "relative" },
-  { heading: "Action", position: "sticky" },
 ];
 
 const MembersTable = ({
@@ -63,12 +51,18 @@ const DepartmentTable = ({ rowData, setRowData, searchQuery }) => (
     headings={DepartmentTableHeadings}
   />
 );
-const SignalTable = ({ rowData, setRowData, searchQuery, Deactivate }) => (
+const SignalTable = ({
+  rowData,
+  setRowData,
+  searchQuery,
+  Deactivate,
+  Heading,
+}) => (
   <SignalTableComponent
     rows={rowData}
     searchQuery={searchQuery}
     setRows={setRowData}
-    headings={SignalTableHeadings}
+    headings={Heading}
     Deactivate={Deactivate}
   />
 );

@@ -23,11 +23,8 @@ import PencilIconSvg from "../../assets/icons/pencil";
 import { useEffect, useRef, useState } from "react";
 import StyledDrawer from "../drawer/drawer";
 import StyledTextField from "../textField/textField";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  handleActiveButton,
-  replaceSignalBody,
-} from "../../pages/setting/slices/signalsslice";
+
+import settingStore from "../../zustand/settings/store";
 
 const SignalTableComponent = ({
   headings,
@@ -38,6 +35,9 @@ const SignalTableComponent = ({
   searchQuery = "",
   Deactivate,
 }) => {
+  const replaceSignalBodys = settingStore((state) => state.replaceSignalBody);
+  const handleActiveButtons = settingStore((state) => state.handleActiveButton);
+
   const [filteredRows, setFilteredRows] = useState([]);
   const [currPage, setCurrPage] = useState(0);
   const [isEditMemberDrawerOpen, setIsEditMemberDrawerOpen] = useState(false);
@@ -47,9 +47,6 @@ const SignalTableComponent = ({
   const [rowss, setRow] = useState(0);
   const inputRef = useRef();
   const [indexs, setIndexs] = useState(0);
-
-  const BodyDatas = useSelector((state) => state.signalsBody);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setModifiedRows(
@@ -100,14 +97,13 @@ const SignalTableComponent = ({
       year: "numeric",
     });
 
-    dispatch(
-      replaceSignalBody({
-        oldItem: filteredRows[indexs].signal,
-        newItem: inputRef.current.value,
-        day: day,
-        time: time,
-      })
-    );
+    replaceSignalBodys({
+      oldItem: filteredRows[indexs].signal,
+      newItem: inputRef.current.value,
+      day: day,
+      time: time,
+    });
+
     setIsEditMemberDrawerOpen(false);
   }
 
@@ -116,22 +112,33 @@ const SignalTableComponent = ({
     setClicked(newClickedState);
     setRow(index);
     if (dialog) {
-      dispatch(
-        handleActiveButton({
-          oldItem: index + 1,
-          status: newClickedState,
-          active: status,
-          dialog: dialog,
-        })
-      );
+      // dispatch(
+      //   handleActiveButton({
+      //     oldItem: index + 1,
+      //     status: newClickedState,
+      //     active: status,
+      //     dialog: dialog,
+      //   })
+      // );
+      handleActiveButtons({
+        oldItem: index + 1,
+        status: newClickedState,
+        active: status,
+        dialog: dialog,
+      });
     } else {
-      dispatch(
-        handleActiveButton({
-          oldItem: index + 1,
-          status: newClickedState,
-          active: status,
-        })
-      );
+      // dispatch(
+      //   handleActiveButton({
+      //     oldItem: index + 1,
+      //     status: newClickedState,
+      //     active: status,
+      //   })
+      // );
+      handleActiveButtons({
+        oldItem: index + 1,
+        status: newClickedState,
+        active: status,
+      });
     }
   };
   // console.log(rows[rowss].status)

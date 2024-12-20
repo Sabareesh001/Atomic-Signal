@@ -2,14 +2,15 @@ import { Box, Dialog, DialogContent, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AlertIconSvg from "../../assets/icons/alerticon";
 import styled from "@emotion/styled";
-import { useDispatch, useSelector } from "react-redux";
-import { handleDeactiveBox } from "../../pages/setting/slices/signalsslice";
 import { styledItem } from "../../pages/setting/style";
+import settingStore from "../../zustand/settings/store";
 
 export default function DialogBox({ color, bgcolor, border, open }) {
-  const BodyDatas = useSelector((state) => state.signalsBody);
-  // console.log(OpenDialogBox.openDeactive)
-  const dispatch = useDispatch();
+  const handleDeactiveButtons = settingStore(
+    (state) => state.handleDeactiveBox
+  );
+  const BodyDatass = settingStore((state) => state.BodyDatas);
+
   const styles = styledItem();
 
   const Button = styled(Box)({
@@ -19,17 +20,12 @@ export default function DialogBox({ color, bgcolor, border, open }) {
     border: border,
   });
   function HandleDialogDeactivation(status) {
-    dispatch(
-      handleDeactiveBox({ status: status, index: open + 1, dialog: false })
-    );
+    handleDeactiveButtons({ status: status, index: open + 1, dialog: false });
   }
   const [opened, setOpened] = useState(true);
 
   return (
-    <Dialog
-      // onClose={onClose}
-      open={BodyDatas[open].dialog}
-    >
+    <Dialog open={BodyDatass[open].dialog}>
       <DialogContent sx={styles.styledDialogContent}>
         <Box sx={styles.styledDialogContentBoxImage}>
           <AlertIconSvg />

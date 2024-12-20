@@ -3,11 +3,14 @@ import { styledItem } from "./style";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Chart from "../profile/chart";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFeedBackType } from "./slices/feedbackslice";
+import settingStore from "../../zustand/settings/store";
+// import { removeFeedBackType } from "./slices/feedbackslice";
 
 export function Grading() {
-  const feedBack = useSelector((state) => state.feedBackType);
-  const dispatch = useDispatch();
+  // const feedBack = useSelector((state) => state.feedBackType);
+  // const dispatch = useDispatch();
+  const FeedBackDatas = settingStore((state) => state.FeedBackDatas);
+  const removeFeedBackType = settingStore((state) => state.removeFeedBackType);
   const styles = styledItem();
   const datas = [
     {
@@ -40,7 +43,8 @@ export function Grading() {
     },
   ];
   function DeleteGrading(index) {
-    dispatch(removeFeedBackType(index));
+    // dispatch(removeFeedBackType(index));
+    removeFeedBackType(index);
   }
   return (
     <Grid2>
@@ -91,7 +95,7 @@ export function Grading() {
               marginTop: "32px",
             }}
           >
-            {feedBack.map((element, index) => {
+            {FeedBackDatas.map((element, index) => {
               return (
                 <Box
                   sx={{
@@ -182,7 +186,7 @@ export function Grading() {
               marginTop: "32px",
             }}
           >
-            {feedBack.map((element, index) => {
+            {FeedBackDatas.map((element, index) => {
               return (
                 <Box
                   sx={{

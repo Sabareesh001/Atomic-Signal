@@ -1,7 +1,7 @@
 import { produce } from "immer";
 import { create } from "zustand";
 
-export const settingStore = create(() => ({
+const settingStore = create((set) => ({
   BodyDatas: [
     {
       id: 1,
@@ -68,44 +68,82 @@ export const settingStore = create(() => ({
     { heading: "Status", position: "relative" },
     { heading: "Action", position: "sticky" },
   ],
-  //   addSignalBody : ({signal , cday , ctime , mtime , mday , status}) =>
-  //     set(
-  //         produce( (state) =>{
-  //     state.BodyDatas.push({signal : signal ,cday : cday ,ctime : ctime ,mtime : mtime ,mday : mday ,status : status});
-  //   })),
-  //   replaceSignalBody : ({oldItem , newItem , day ,time}) => set(state =>{
-  //     // console.log(state);
-  //     return state.map((item) =>
-  //       item.signal === oldItem
-  //         ? { ...item, signal: newItem, mday: day, mtime: time }
-  //         : item
-  //     );
-  //   }),
-  //   handleActiveButton : ({oldItem , status , active , dialog}) => set( state => {
-  //     // console.log(state[4].id)
-  //     if (dialog) {
-  //       return state.map((item, index) =>
-  //         item.id === oldItem
-  //           ? { ...item, active: active, dialog: dialog }
-  //           : item
-  //       );
-  //     } else {
-  //       return state.map((item, index) =>
-  //         item.id === oldItem
-  //           ? { ...item, status: status, active: active }
-  //           : item
-  //       );
-  //     }
-  //   }),
-  //   handleDeactiveBox : ({status, index, dialog}) => set( state => {
-  //     if (status === true) {
-  //       return state.map((item) =>
-  //         item.id === index ? { ...item, status: false, dialog: dialog } : item
-  //       );
-  //     } else if (status === false) {
-  //       return state.map((item) =>
-  //         item.id === index ? { ...item, status: true, dialog: dialog } : item
-  //       );
-  //     }
-  //   }),
+  FeedBackDatas: [
+    {
+      value: 1,
+      chartDesc: "Completely away",
+    },
+    {
+      value: 2,
+      chartDesc: "Need to improve a lot",
+    },
+    {
+      value: 3,
+      chartDesc: "Need to improve",
+    },
+    {
+      value: 4,
+      chartDesc: "Good",
+    },
+    {
+      value: 5,
+      chartDesc: "Very good",
+    },
+    {
+      value: 6,
+      chartDesc: "Spectacular",
+    },
+    {
+      value: 7,
+      chartDesc: "Impactful",
+    },
+  ],
+  addSignalBody: ({ signal, cday, ctime, mtime, mday, status }) =>
+    set(
+      produce((state) => {
+        state.BodyDatas.push({
+          signal: signal,
+          cday: cday,
+          ctime: ctime,
+          mtime: mtime,
+          mday: mday,
+          status: status,
+        });
+      })
+    ),
+  replaceSignalBody: ({ oldItem, newItem, day, time }) =>
+    set((state) => ({
+      BodyDatas: state.BodyDatas.map((item) =>
+        item.signal === oldItem
+          ? { ...item, signal: newItem, mday: day, mtime: time }
+          : item
+      ),
+    })),
+  handleActiveButton: ({ oldItem, status, active, dialog }) =>
+    set((state) => ({
+      BodyDatas: state.BodyDatas.map((item) =>
+        item.id === oldItem
+          ? dialog
+            ? { ...item, active: active, dialog: dialog }
+            : { ...item, status: status, active: active }
+          : item
+      ),
+    })),
+
+  handleDeactiveBox: ({ status, index, dialog }) =>
+    set((state) => ({
+      BodyDatas: state.BodyDatas.map((item) =>
+        item.id === index
+          ? status
+            ? { ...item, status: false, dialog: dialog }
+            : { ...item, status: true, dialog: dialog }
+          : item
+      ),
+    })),
+  removeFeedBackType: (index) =>
+    set((state) => ({
+      FeedBackDatas: state.FeedBackDatas.filter((element, i) => i !== index),
+    })),
 }));
+
+export default settingStore;
