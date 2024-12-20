@@ -7,14 +7,16 @@ import StyledInputLabel from "../../components/inputLabel/inputLabel";
 import StyledTextField from "../../components/textField/textField";
 import StyledTextArea from "../../components/textArea/styledTextArea";
 import SearchIcon from "@mui/icons-material/Search";
-import { useDispatch, useSelector } from "react-redux";
-import { addSignalBody, addSignalHead } from "./slices/signalsslice";
 import DialogBox from "../../components/dialogBox/dialogBox";
+import { styledItem } from "./style";
+import settingStore from "../../zustand/settings/store";
 
 function Signals() {
-  const BodyDatas = useSelector((state) => state.signalsBody);
-
-  const dispatch = useDispatch();
+  const HeadDatas = settingStore((state) => state.HeadDatas);
+  const BodyDatass = settingStore((state) => state.BodyDatas);
+  const addSignalBodys = settingStore((state) => state.addSignalBody);
+  // console.log(Datas)
+  const styles = styledItem();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddSignalsOpen, setIsAddSignalsOpen] = useState(false);
@@ -33,16 +35,17 @@ function Signals() {
       year: "numeric",
     });
 
-    dispatch(
-      addSignalBody({
-        signal: inputRef.current.value,
+    const SignalName = inputRef.current.value.trim();
+    if (SignalName) {
+      addSignalBodys({
+        signal: SignalName,
         cday: day,
         ctime: time,
         mtime: time,
         mday: day,
-        status: 1,
-      })
-    );
+        status: true,
+      });
+    }
     setIsAddSignalsOpen(false);
   }
 
@@ -71,7 +74,7 @@ function Signals() {
   return (
     <SignalsSectionContainer>
       <SignalsHeader>
-        <SignalsTitle>Signals ({BodyDatas.length})</SignalsTitle>
+        <SignalsTitle>Signals ({BodyDatass.length})</SignalsTitle>
         <Searchbox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <AddButton
           onClick={() => {
@@ -82,9 +85,10 @@ function Signals() {
 
       <SignalTable
         searchQuery={searchQuery}
-        rowData={BodyDatas}
+        rowData={BodyDatass}
         setRowData={setRows}
         Deactivate={HandleDialogIndex}
+        Heading={HeadDatas}
       ></SignalTable>
 
       <StyledDrawer

@@ -4,6 +4,7 @@ import { useState } from "react";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 export function FeedBackTypes(props) {
+  const styles = styledItem();
   const [selectedItem, setSelectedItem] = useState(0);
   const toggleHighlight = (id) => {
     setSelectedItem(id);
@@ -35,9 +36,9 @@ export function FeedBackTypes(props) {
   ];
 
   return (
-    <Grid2 sx={{ ...styledItem.parentGridSignalStyle, border: 0, margin: 0 }}>
+    <Grid2 sx={{ ...styles.parentGridSignalStyle, border: 0, margin: 0 }}>
       <Grid2 sx={{ paddingTop: "0px" }}>
-        <Typography sx={styledItem.feedbackTypeInfoText}>
+        <Typography sx={styles.feedbackTypeInfoText}>
           {props.heading}
         </Typography>
         <Box sx={{ marginTop: "12px", overflowX: "auto" }}>
@@ -56,7 +57,7 @@ export function FeedBackTypes(props) {
                     key={index}
                     onClick={() => toggleHighlight(index)}
                     sx={{
-                      ...styledItem.feedbackTypeBox,
+                      ...styles.feedbackTypeBox,
                       border:
                         index === selectedItem
                           ? "1px solid #49C792"
@@ -68,11 +69,11 @@ export function FeedBackTypes(props) {
                       src={
                         selectedItem === index ? item.imageSrc1 : item.imageSrc
                       }
-                      sx={styledItem.feedbackAvatarBox}
+                      sx={styles.feedbackAvatarBox}
                     />
                     <Typography
                       sx={{
-                        ...styledItem.dataStyle,
+                        ...styles.dataStyle,
                         fontSize: "14px",
                         fontWeight: "500",
                         marginTop: "7px",
@@ -85,11 +86,11 @@ export function FeedBackTypes(props) {
               );
             })}
           </Box>
-          <Box sx={styledItem.feedbackInfoBox}>
+          <Box sx={styles.feedbackInfoBox}>
             <InfoOutlinedIcon fontSize="verysmall" sx={{ color: "#49C792" }} />
             <Typography
               sx={{
-                ...styledItem.dataStyle,
+                ...styles.dataStyle,
                 fontSize: "14px",
               }}
             >
