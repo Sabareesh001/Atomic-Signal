@@ -233,7 +233,7 @@ const SignalTableComponent = ({
         </Table>
       </StyledBottomTableContainer>
       <StyledDrawer
-        title={"Edit Department"}
+        title={"Edit Signal"}
         content={<DrawerForm />}
         anchor={"right"}
         bottomLeftButton={{ label: "Save", onClick: UpdateItem }}
