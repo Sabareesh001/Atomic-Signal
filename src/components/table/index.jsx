@@ -30,6 +30,7 @@ const MembersTable = ({
   searchQuery = "",
   setRowData,
   stickyHeadings,
+  Deactivate,
 }) => {
   return (
     <MembersTableComponent
@@ -39,16 +40,18 @@ const MembersTable = ({
       setRows={setRowData}
       stickyColumnData={stickyColumnData}
       searchQuery={searchQuery}
+      Deactivate={Deactivate}
     />
   );
 };
 
-const DepartmentTable = ({ rowData, setRowData, searchQuery }) => (
+const DepartmentTable = ({ rowData, setRowData, searchQuery, Deactivate }) => (
   <DepartmentTableComponent
     rows={rowData}
     searchQuery={searchQuery}
     setRows={setRowData}
     headings={DepartmentTableHeadings}
+    Deactivate={Deactivate}
   />
 );
 const SignalTable = ({

@@ -24,8 +24,9 @@ const FilterForm = () => {
     Array(performanceFilters.length).fill(false)
   );
   const [roleFiltersSelected, setRoleFiltersSelected] = useState(
-    Array(roleFilters).fill(false)
+    Array(roleFilters.length).fill(false)
   );
+
   return (
     <FilterFormContainer>
       <FilterFormField>

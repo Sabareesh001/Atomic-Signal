@@ -20,12 +20,15 @@ const StyledDatePickerComponent = styled(DatePicker)(({ theme }) => ({
   },
 }));
 
-export default function StyledDatePicker({ size }) {
+export default function StyledDatePicker({ size, value, onchange, inputRef }) {
   const theme = useTheme();
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["DatePicker"]}>
         <StyledDatePickerComponent
+          value={value}
+          onChange={onchange}
+          inputRef={inputRef}
           slots={{
             openPickerButton: (props) => (
               <EventOutlinedIcon

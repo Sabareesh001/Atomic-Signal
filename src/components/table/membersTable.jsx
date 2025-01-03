@@ -32,7 +32,7 @@ import {
 } from "./membersTable.styles";
 
 import Table from "@mui/material/Table";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 import StyledButton from "../button/button";
 import StyledChip from "../chip/chip";
@@ -42,6 +42,9 @@ import StyledSelect from "../select/select";
 import IOSSwitch from "../switch/switch";
 import StyledTextField from "../textField/textField";
 import { EmSizeMWeight, MSizeRWeight } from "../typography/typography";
+import IosSwitch from "../switch/iosSwitch";
+import teamStore from "../../zustand/teams/store";
+import MembersDrawerForm from "../../pages/team/addMemberForm";
 const MembersTableComponent = ({
   headings,
   stickyheadings,
@@ -49,12 +52,24 @@ const MembersTableComponent = ({
   stickyColumnData,
   setRows,
   searchQuery = "",
+  Deactivate,
 }) => {
   const theme = useTheme();
   const [filteredRows, setFilteredRows] = useState([]);
   const [currPage, setCurrPage] = useState(0);
   const [isEditMemberDrawerOpen, setIsEditMemberDrawerOpen] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [clicked, setClicked] = useState(true);
+  const [rowss, setRow] = useState(0);
+  const inputRef = useRef();
+  const [indexs, setIndexs] = useState(0);
+  const {
+    handleTeamActiveButton,
+    handleTeamUpdateMember,
+    TeamRowDatas,
+    handleTeamChange,
+    TeamRowData,
+  } = teamStore();
   const [modifiedRows, setModifiedRows] = useState([]);
   useEffect(() => {
     setModifiedRows(
@@ -69,13 +84,29 @@ const MembersTableComponent = ({
   useEffect(() => {
     const startIndex = currPage * rowsPerPage;
     const endIndex = startIndex + rowsPerPage;
-    console.log(startIndex, endIndex);
+    // console.log(startIndex, endIndex);
     setFilteredRows(modifiedRows.slice(startIndex, endIndex));
   }, [modifiedRows, currPage, rowsPerPage]);
 
   useEffect(() => {
     setCurrPage(0);
   }, [rowsPerPage]);
+  const handleToggleClick = (index) => {
+    setClicked(!clicked);
+    setRow(index);
+    if (TeamRowData.dialog) {
+      handleTeamActiveButton(index + 1);
+      console.log(TeamRowDatas);
+    } else {
+      handleTeamActiveButton(index + 1);
+      console.log(TeamRowDatas);
+    }
+  };
+  function UpdatedMember() {
+    console.log(indexs);
+    handleTeamUpdateMember(indexs);
+    console.log(TeamRowDatas);
+  }
 
   return (
     <TableDiv>
@@ -90,13 +121,13 @@ const MembersTableComponent = ({
         >
           <StyledTableHead>
             <StyledTableRow>
-              {headings?.map((data) => (
-                <StyledTableHeading>
+              {headings?.map((data, index) => (
+                <StyledTableHeading key={index}>
                   <EmSizeMWeight content={data} />
                 </StyledTableHeading>
               ))}
-              {stickyheadings?.map((data) => (
-                <StickyHeading align="center">
+              {stickyheadings?.map((data, i) => (
+                <StickyHeading align="center" key={i}>
                   {" "}
                   <EmSizeMWeight content={data} />
                 </StickyHeading>
@@ -106,7 +137,7 @@ const MembersTableComponent = ({
           <TableBody>
             {filteredRows?.map((row, i) => {
               return (
-                <StyledTableRow>
+                <StyledTableRow key={i}>
                   <StyledTableCell>
                     <MemberProfile>
                       <ProfileAvatar
@@ -125,9 +156,10 @@ const MembersTableComponent = ({
                   </StyledTableCell>
                   <StyledTableCell>
                     <SignalList>
-                      {row?.signals.map((signal) => {
+                      {row?.signals.map((signal, index) => {
                         return (
                           <LightTooltip
+                            key={index}
                             fontSize={"0.8em"}
                             title={
                               <ToolTipContent>
@@ -196,10 +228,11 @@ const MembersTableComponent = ({
                       <MSizeRWeight content={row?.reporting_to?.[0]?.name} />
                       {row?.reporting_to?.length > 1 && (
                         <LightTooltip
+                          key={i}
                           title={
                             <ReportingList>
-                              {row?.reporting_to?.slice(1)?.map((data) => (
-                                <MemberProfile fontSize={"1.4em"}>
+                              {row?.reporting_to?.slice(1)?.map((data, i) => (
+                                <MemberProfile fontSize={"1.4em"} key={i}>
                                   <ProfileAvatar
                                     height={"25px"}
                                     width={"25px"}
@@ -228,24 +261,29 @@ const MembersTableComponent = ({
                     <MSizeRWeight content={row?.experience} />
                   </StyledTableCell>
                   <StyledTableCell>
-                    <StatusContainer>
-                      <IOSSwitch
-                        onChange={(e) => {
-                          setRows((prev) => {
-                            const newPrev = [...prev];
-                            const target = newPrev.findIndex(
-                              (data) => data.id === row?.id
-                            );
-                            newPrev[target].status = e.target.checked ? 1 : 0;
-                            return newPrev;
-                          });
-                        }}
-                        checked={row?.status}
-                      />{" "}
-                      <MSizeRWeight
-                        content={row?.status ? "Active" : "Deactive"}
-                      />
-                    </StatusContainer>
+                    <IosSwitch
+                      onclick={(dialog) => {
+                        if (row.status) {
+                          handleTeamChange("active", true);
+                          handleTeamChange("status", !clicked);
+                          handleTeamChange("dialog", true);
+                          handleToggleClick(i);
+                        } else {
+                          handleTeamChange("status", !clicked);
+                          handleTeamChange("active", false);
+                          handleToggleClick(i);
+                        }
+                        Deactivate(i);
+                      }}
+                      checked={row.status}
+                    />{" "}
+                    {i === rowss
+                      ? row.status
+                        ? "Active"
+                        : "Deactive"
+                      : row.status
+                        ? "Active"
+                        : "Deactive"}
                   </StyledTableCell>
                   <StickyCell align="center">
                     <ActionContainer>
@@ -259,6 +297,7 @@ const MembersTableComponent = ({
                         </StyledButton>
                         <PencilIcon
                           onClick={() => {
+                            setIndexs(i + 1);
                             setIsEditMemberDrawerOpen(true);
                           }}
                         />
@@ -293,53 +332,15 @@ const MembersTableComponent = ({
       </StyledBottomTableContainer>
       <StyledDrawer
         title={"Edit member"}
-        content={<DrawerForm />}
+        content={<MembersDrawerForm />}
         anchor={"right"}
-        bottomLeftButton={{ label: "Save", onClick: () => {} }}
+        bottomLeftButton={{ label: "Save", onClick: UpdatedMember }}
         onClose={() => {
           setIsEditMemberDrawerOpen(false);
         }}
         open={isEditMemberDrawerOpen}
       />
     </TableDiv>
-  );
-};
-
-const DrawerForm = () => {
-  return (
-    <StyledFormControl>
-      <StyledInputLabel required>Name</StyledInputLabel>
-      <StyledTextField
-        placeholder="Type name"
-        size="small"
-        fullWidth
-      ></StyledTextField>
-      <StyledInputLabel required>Email</StyledInputLabel>
-      <StyledTextField
-        placeholder="Email"
-        size="small"
-        fullWidth
-      ></StyledTextField>
-      <StyledInputLabel required>Date of Joining</StyledInputLabel>
-      <StyledDatePicker></StyledDatePicker>
-      <StyledInputLabel>Department</StyledInputLabel>
-      <StyledSelect placeholder="Select department" size="small"></StyledSelect>
-      <StyledInputLabel required>Designation</StyledInputLabel>
-      <StyledSelect placeholder="Select" size="small"></StyledSelect>
-      <StyledInputLabel required>Role</StyledInputLabel>
-      <StyledSelect placeholder="Select" size="small"></StyledSelect>
-      <StyledInputLabel>Reporting To</StyledInputLabel>
-      <StyledSelect placeholder="Manager name" size="small"></StyledSelect>
-      <StyledChip
-        hasAvatar={true}
-        avatarImg={
-          "https://static.vecteezy.com/system/resources/thumbnails/005/346/410/small_2x/close-up-portrait-of-smiling-handsome-young-caucasian-man-face-looking-at-camera-on-isolated-light-gray-studio-background-photo.jpg"
-        }
-        variant="outlined"
-        label="Steven"
-        onDelete={() => {}}
-      />
-    </StyledFormControl>
   );
 };
 

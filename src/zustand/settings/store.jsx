@@ -1,8 +1,9 @@
 import { produce } from "immer";
 import { create } from "zustand";
 
-const settingStore = create((set) => ({
-  BodyDatas: [
+const settingStore = create((set, get) => ({
+  SignalRowData: {},
+  SignalBodyDatas: [
     {
       id: 1,
       signal: "Communication",
@@ -60,7 +61,7 @@ const settingStore = create((set) => ({
     },
   ],
 
-  HeadDatas: [
+  SignalHeadDatas: [
     { heading: "S.No", position: "relative" },
     { heading: "Signal name", position: "relative" },
     { heading: "Created on", position: "relative" },
@@ -98,11 +99,112 @@ const settingStore = create((set) => ({
       chartDesc: "Impactful",
     },
   ],
-  addSignalBody: ({ signal, cday, ctime, mtime, mday, status }) =>
+  DepartmentBodyDatas: [
+    {
+      id: 1,
+      department: "Design",
+      cday: "08 Feb 2023",
+      ctime: "04:40 PM",
+      mday: "08 Feb 2023",
+      mtime: "04:40 PM",
+      status: true,
+      active: false,
+      dialog: false,
+    },
+    {
+      id: 2,
+      department: "Product",
+      cday: "08 Feb 2023",
+      ctime: "04:40 PM",
+      mday: "08 Feb 2023",
+      mtime: "04:40 PM",
+      status: true,
+      active: false,
+      dialog: false,
+    },
+    {
+      id: 3,
+      department: "Management",
+      cday: "08 Feb 2023",
+      ctime: "04:40 PM",
+      mday: "08 Feb 2023",
+      mtime: "04:40 PM",
+      status: true,
+      active: false,
+      dialog: false,
+    },
+  ],
+  handleChange: (key, value) =>
     set(
       produce((state) => {
-        state.BodyDatas.push({
-          signal: signal,
+        state.SignalRowData = {
+          ...state.SignalRowData,
+          [key]: value,
+        };
+      })
+    ),
+  addSignalBody: () =>
+    set(
+      produce((state) => {
+        const Data = get().SignalRowData;
+        state.SignalBodyDatas.push(Data);
+      })
+    ),
+  replaceSignalBody: (oldItem) =>
+    set((state) => {
+      const Data = get().SignalRowData;
+      return {
+        ...state,
+        SignalBodyDatas: state.SignalBodyDatas.map((item) =>
+          item.id === oldItem
+            ? {
+                ...item,
+                signal: Data.signal,
+                mday: Data.mday,
+                mtime: Data.mtime,
+              }
+            : item
+        ),
+      };
+    }),
+  handleActiveButton: (oldItem) =>
+    set((state) => {
+      const Data = get().SignalRowData;
+      console.log(Data);
+      return {
+        ...state,
+        SignalBodyDatas: state.SignalBodyDatas.map((item) =>
+          item.id === oldItem
+            ? Data.dialog
+              ? { ...item, active: Data.active, dialog: Data.dialog }
+              : { ...item, status: Data.status, active: Data.active }
+            : item
+        ),
+      };
+    }),
+
+  handleDeactiveButton: (index) =>
+    set((state) => {
+      const Data = get().SignalRowData;
+      return {
+        SignalBodyDatas: state.SignalBodyDatas.map((item) =>
+          item.id === index
+            ? Data.status
+              ? { ...item, status: !Data.status, dialog: Data.dialog }
+              : { ...item, status: !Data.status, dialog: Data.dialog }
+            : item
+        ),
+      };
+    }),
+  removeFeedBackType: (index) =>
+    set((state) => ({
+      FeedBackDatas: state.FeedBackDatas.filter((element, i) => i !== index),
+    })),
+  addDepartmentRow: ({ department, cday, ctime, mtime, mday, status }) =>
+    set(
+      produce((state) => {
+        state.DepartmentBodyDatas.push({
+          department: department,
           cday: cday,
           ctime: ctime,
           mtime: mtime,
@@ -111,17 +213,17 @@ const settingStore = create((set) => ({
         });
       })
     ),
-  replaceSignalBody: ({ oldItem, newItem, day, time }) =>
+  replaceDepartmentRow: ({ oldItem, newItem, day, time }) =>
     set((state) => ({
-      BodyDatas: state.BodyDatas.map((item) =>
-        item.signal === oldItem
-          ? { ...item, signal: newItem, mday: day, mtime: time }
+      DepartmentBodyDatas: state.DepartmentBodyDatas.map((item) =>
+        item.department === oldItem
+          ? { ...item, department: newItem, mday: day, mtime: time }
           : item
       ),
     })),
-  handleActiveButton: ({ oldItem, status, active, dialog }) =>
+  handleDepartmentActiveButton: ({ oldItem, status, active, dialog }) =>
     set((state) => ({
-      BodyDatas: state.BodyDatas.map((item) =>
+      DepartmentBodyDatas: state.DepartmentBodyDatas.map((item) =>
         item.id === oldItem
           ? dialog
             ? { ...item, active: active, dialog: dialog }
@@ -130,19 +232,15 @@ const settingStore = create((set) => ({
       ),
     })),
 
-  handleDeactiveBox: ({ status, index, dialog }) =>
+  handleDepartmentDeactiveButton: ({ status, index, dialog }) =>
     set((state) => ({
-      BodyDatas: state.BodyDatas.map((item) =>
+      DepartmentBodyDatas: state.DepartmentBodyDatas.map((item) =>
         item.id === index
           ? status
             ? { ...item, status: false, dialog: dialog }
             : { ...item, status: true, dialog: dialog }
           : item
       ),
-    })),
-  removeFeedBackType: (index) =>
-    set((state) => ({
-      FeedBackDatas: state.FeedBackDatas.filter((element, i) => i !== index),
     })),
 }));
 

@@ -12,9 +12,15 @@ import { styledItem } from "./style";
 import settingStore from "../../zustand/settings/store";
 
 function Signals() {
-  const HeadDatas = settingStore((state) => state.HeadDatas);
-  const BodyDatass = settingStore((state) => state.BodyDatas);
-  const addSignalBodys = settingStore((state) => state.addSignalBody);
+  const {
+    SignalHeadDatas,
+    SignalBodyDatas,
+    addSignalBody,
+    handleChange,
+    SignalRowData,
+  } = settingStore();
+  const length1 = SignalBodyDatas.length;
+  // console.log(SignalRowData)
   // console.log(Datas)
   const styles = styledItem();
 
@@ -23,47 +29,11 @@ function Signals() {
   const [rows, setRows] = useState([]);
 
   function Clicked() {
-    const currentDate = new Date();
-    const time = currentDate.toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: "true",
-    });
-    const day = currentDate.toLocaleString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-
-    const SignalName = inputRef.current.value.trim();
-    if (SignalName) {
-      addSignalBodys({
-        signal: SignalName,
-        cday: day,
-        ctime: time,
-        mtime: time,
-        mday: day,
-        status: true,
-      });
-    }
+    addSignalBody();
     setIsAddSignalsOpen(false);
   }
 
   const inputRef = useRef();
-
-  const AddSignalsDrawerForm = () => {
-    return (
-      <StyledFormControl component="form">
-        <StyledInputLabel required>Name</StyledInputLabel>
-        <StyledTextField
-          placeholder="Type name"
-          size="small"
-          fullWidth
-          inputRef={inputRef}
-        ></StyledTextField>
-      </StyledFormControl>
-    );
-  };
 
   const [indexes, setIndexes] = useState(0);
   function HandleDialogIndex(index) {
@@ -74,7 +44,7 @@ function Signals() {
   return (
     <SignalsSectionContainer>
       <SignalsHeader>
-        <SignalsTitle>Signals ({BodyDatass.length})</SignalsTitle>
+        <SignalsTitle>Signals ({SignalBodyDatas.length})</SignalsTitle>
         <Searchbox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <AddButton
           onClick={() => {
@@ -85,10 +55,10 @@ function Signals() {
 
       <SignalTable
         searchQuery={searchQuery}
-        rowData={BodyDatass}
+        rowData={SignalBodyDatas}
         setRowData={setRows}
         Deactivate={HandleDialogIndex}
-        Heading={HeadDatas}
+        Heading={SignalHeadDatas}
       ></SignalTable>
 
       <StyledDrawer
@@ -101,7 +71,12 @@ function Signals() {
         }}
         open={isAddSignalsOpen}
       />
-      <DialogBox open={indexes} />
+      <DialogBox
+        open={indexes}
+        message="Are you sure, would you like to deactivate?"
+        Datas={SignalBodyDatas}
+        Page="SignalBodyDatas"
+      />
     </SignalsSectionContainer>
   );
 }
@@ -206,5 +181,41 @@ const Searchbox = ({ searchQuery, setSearchQuery }) => {
     </Box>
   );
 };
-
+const AddSignalsDrawerForm = () => {
+  const { handleChange, SignalRowData, SignalBodyDatas } = settingStore();
+  function handleSignalChange(value) {
+    const length1 = SignalBodyDatas.length;
+    const currentDate = new Date();
+    const time = currentDate.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: "true",
+    });
+    const day = currentDate.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+    handleChange("id", length1 + 1);
+    handleChange("signal", value);
+    handleChange("cday", day);
+    handleChange("ctime", time);
+    handleChange("mtime", time);
+    handleChange("mday", day);
+    handleChange("status", true);
+    handleChange("active", false);
+    handleChange("dialog", false);
+  }
+  return (
+    <StyledFormControl>
+      <StyledInputLabel required>Name</StyledInputLabel>
+      <StyledTextField
+        placeholder="Type name"
+        size="small"
+        fullWidth
+        onChange={(e) => handleSignalChange(e.target.value)}
+      ></StyledTextField>
+    </StyledFormControl>
+  );
+};
 export default Signals;

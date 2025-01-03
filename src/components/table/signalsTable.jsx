@@ -35,8 +35,13 @@ const SignalTableComponent = ({
   searchQuery = "",
   Deactivate,
 }) => {
-  const replaceSignalBodys = settingStore((state) => state.replaceSignalBody);
-  const handleActiveButtons = settingStore((state) => state.handleActiveButton);
+  const {
+    replaceSignalBodys,
+    handleActiveButton,
+    handleChange,
+    SignalBodyDatas,
+    SignalRowData,
+  } = settingStore();
 
   const [filteredRows, setFilteredRows] = useState([]);
   const [currPage, setCurrPage] = useState(0);
@@ -67,78 +72,22 @@ const SignalTableComponent = ({
   useEffect(() => {
     setCurrPage(0);
   }, [rowsPerPage]);
-  const DrawerForm = () => {
-    return (
-      <StyledFormControl>
-        <StyledInputLabel required>Name</StyledInputLabel>
-        <StyledTextField
-          placeholder="Type name"
-          size="small"
-          fullWidth
-          inputRef={inputRef}
-        ></StyledTextField>
-      </StyledFormControl>
-    );
-  };
 
   function UpdateItem() {
-    console.log(indexs);
-    console.log(filteredRows[indexs].signal);
-    console.log(inputRef.current.value);
-    const currentDate = new Date();
-    const time = currentDate.toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: "true",
-    });
-    const day = currentDate.toLocaleString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-
-    replaceSignalBodys({
-      oldItem: filteredRows[indexs].signal,
-      newItem: inputRef.current.value,
-      day: day,
-      time: time,
-    });
+    replaceSignalBodys(indexs + 1);
 
     setIsEditMemberDrawerOpen(false);
   }
 
-  const handleToggleClick = (index, status, dialog) => {
-    const newClickedState = !clicked;
-    setClicked(newClickedState);
+  const handleToggleClick = (index) => {
+    setClicked(!clicked);
     setRow(index);
-    if (dialog) {
-      // dispatch(
-      //   handleActiveButton({
-      //     oldItem: index + 1,
-      //     status: newClickedState,
-      //     active: status,
-      //     dialog: dialog,
-      //   })
-      // );
-      handleActiveButtons({
-        oldItem: index + 1,
-        status: newClickedState,
-        active: status,
-        dialog: dialog,
-      });
+    if (SignalRowData.dialog) {
+      handleActiveButton(index + 1);
+      console.log(SignalBodyDatas);
     } else {
-      // dispatch(
-      //   handleActiveButton({
-      //     oldItem: index + 1,
-      //     status: newClickedState,
-      //     active: status,
-      //   })
-      // );
-      handleActiveButtons({
-        oldItem: index + 1,
-        status: newClickedState,
-        active: status,
-      });
+      handleActiveButton(index + 1);
+      console.log(SignalBodyDatas);
     }
   };
   // console.log(rows[rowss].status)
@@ -165,7 +114,7 @@ const SignalTableComponent = ({
             {filteredRows?.map((row, i) => {
               return (
                 <StyledTableRow key={i}>
-                  <StyledTableCell>{i + 1}</StyledTableCell>
+                  <StyledTableCell>{row.id}</StyledTableCell>
                   <StyledTableCell>{row?.signal}</StyledTableCell>
                   <StyledTableCell>
                     {row?.cday}, {row?.ctime}
@@ -177,11 +126,15 @@ const SignalTableComponent = ({
                     <IosSwitch
                       onclick={(dialog) => {
                         if (row.status) {
-                          handleToggleClick(i, row.status, (dialog = true));
+                          handleChange("active", true);
+                          handleChange("status", !clicked);
+                          handleChange("dialog", true);
+                          handleToggleClick(i);
                         } else {
-                          handleToggleClick(i, row.status, (dialog = false));
+                          handleChange("status", !clicked);
+                          handleChange("active", false);
+                          handleToggleClick(i);
                         }
-                        // setIndexs(i)
                         Deactivate(i);
                       }}
                       checked={row.status}
@@ -243,6 +196,36 @@ const SignalTableComponent = ({
         open={isEditMemberDrawerOpen}
       />
     </TableDiv>
+  );
+};
+const DrawerForm = () => {
+  const { SignalRowData, handleChange } = settingStore();
+  function handleInput(e) {
+    const currentDate = new Date();
+    const time = currentDate.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: "true",
+    });
+    const day = currentDate.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+    handleChange("signal", e);
+    handleChange("mday", day);
+    handleChange("mtime", time);
+  }
+  return (
+    <StyledFormControl>
+      <StyledInputLabel required>Name</StyledInputLabel>
+      <StyledTextField
+        placeholder="Type name"
+        size="small"
+        fullWidth
+        onChange={(e) => handleInput(e.target.value)}
+      ></StyledTextField>
+    </StyledFormControl>
   );
 };
 
