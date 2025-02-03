@@ -3,11 +3,15 @@ import { styledItem } from "./style";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Chart from "../profile/chart";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFeedBackType } from "./slices/feedbackslice";
+import settingStore from "../../zustand/settings/store";
+// import { removeFeedBackType } from "./slices/feedbackslice";
 
 export function Grading() {
-  const feedBack = useSelector((state) => state.feedBackType);
-  const dispatch = useDispatch();
+  // const feedBack = useSelector((state) => state.feedBackType);
+  // const dispatch = useDispatch();
+  const FeedBackDatas = settingStore((state) => state.FeedBackDatas);
+  const removeFeedBackType = settingStore((state) => state.removeFeedBackType);
+  const styles = styledItem();
   const datas = [
     {
       value: 1,
@@ -39,27 +43,26 @@ export function Grading() {
     },
   ];
   function DeleteGrading(index) {
-    dispatch(removeFeedBackType(index));
+    // dispatch(removeFeedBackType(index));
+    removeFeedBackType(index);
   }
   return (
     <Grid2>
       <Grid2
         sx={{
-          ...styledItem.parentGridSignalStyleWeb,
+          ...styles.parentGridSignalStyleWeb,
           padding: 0,
           overflowX: "auto",
         }}
       >
         <Grid2
-          sx={{ ...styledItem.parentGridSignalStyleWeb, border: 0, margin: 0 }}
+          sx={{ ...styles.parentGridSignalStyleWeb, border: 0, margin: 0 }}
         >
-          <Box sx={styledItem.parentBoxSignalStyle}>
-            <Typography sx={styledItem.headSignalStyle}>
-              Edit grading
-            </Typography>
+          <Box sx={styles.parentBoxSignalStyle}>
+            <Typography sx={styles.headSignalStyle}>Edit grading</Typography>
             <Button
               variant="contained"
-              sx={{ ...styledItem.signalButtonStyle, padding: "3px 20px" }}
+              sx={{ ...styles.signalButtonStyle, padding: "3px 20px" }}
             >
               Save
             </Button>
@@ -67,7 +70,7 @@ export function Grading() {
         </Grid2>
         <Typography component="hr" sx={{ border: "1px solid #EBEBEB" }} />
         <Grid2
-          sx={{ ...styledItem.parentGridSignalStyleWeb, border: 0, margin: 0 }}
+          sx={{ ...styles.parentGridSignalStyleWeb, border: 0, margin: 0 }}
         >
           <Grid2 sx={{ paddingTop: "0px" }}>
             <Typography
@@ -92,7 +95,7 @@ export function Grading() {
               marginTop: "32px",
             }}
           >
-            {feedBack.map((element, index) => {
+            {FeedBackDatas.map((element, index) => {
               return (
                 <Box
                   sx={{
@@ -116,7 +119,7 @@ export function Grading() {
                     <Chart Size="small" value={element.value} />
                     <Typography
                       sx={{
-                        ...styledItem.dataStyle,
+                        ...styles.dataStyle,
                         fontSize: "14px",
                         fontWeight: "500",
                       }}
@@ -138,21 +141,19 @@ export function Grading() {
       </Grid2>
       <Grid2
         sx={{
-          ...styledItem.parentGridSignalStyleMob,
+          ...styles.parentGridSignalStyleMob,
           padding: 0,
           overflowX: "auto",
         }}
       >
         <Grid2
-          sx={{ ...styledItem.parentGridSignalStyleMob, border: 0, margin: 0 }}
+          sx={{ ...styles.parentGridSignalStyleMob, border: 0, margin: 0 }}
         >
-          <Box sx={styledItem.parentBoxSignalStyle}>
-            <Typography sx={styledItem.headSignalStyle}>
-              Edit grading
-            </Typography>
+          <Box sx={styles.parentBoxSignalStyle}>
+            <Typography sx={styles.headSignalStyle}>Edit grading</Typography>
             <Button
               variant="contained"
-              sx={{ ...styledItem.signalButtonStyle, padding: "3px 20px" }}
+              sx={{ ...styles.signalButtonStyle, padding: "3px 20px" }}
             >
               Save
             </Button>
@@ -160,7 +161,7 @@ export function Grading() {
         </Grid2>
         <Typography component="hr" sx={{ border: "1px solid #EBEBEB" }} />
         <Grid2
-          sx={{ ...styledItem.parentGridSignalStyleMob, border: 0, margin: 0 }}
+          sx={{ ...styles.parentGridSignalStyleMob, border: 0, margin: 0 }}
         >
           <Grid2 sx={{ paddingTop: "0px" }}>
             <Typography
@@ -185,7 +186,7 @@ export function Grading() {
               marginTop: "32px",
             }}
           >
-            {feedBack.map((element, index) => {
+            {FeedBackDatas.map((element, index) => {
               return (
                 <Box
                   sx={{
@@ -209,7 +210,7 @@ export function Grading() {
                     <Chart Size="small" value={element.value} />
                     <Typography
                       sx={{
-                        ...styledItem.dataStyle,
+                        ...styles.dataStyle,
                         fontSize: "14px",
                         fontWeight: "500",
                       }}

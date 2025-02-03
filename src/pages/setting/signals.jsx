@@ -7,60 +7,33 @@ import StyledInputLabel from "../../components/inputLabel/inputLabel";
 import StyledTextField from "../../components/textField/textField";
 import StyledTextArea from "../../components/textArea/styledTextArea";
 import SearchIcon from "@mui/icons-material/Search";
-import { useDispatch, useSelector } from "react-redux";
-import { addSignalBody, addSignalHead } from "./slices/signalsslice";
 import DialogBox from "../../components/dialogBox/dialogBox";
+import { styledItem } from "./style";
+import settingStore from "../../zustand/settings/store";
 
 function Signals() {
-  const BodyDatas = useSelector((state) => state.signalsBody);
-
-  const dispatch = useDispatch();
+  const {
+    SignalHeadDatas,
+    SignalBodyDatas,
+    addSignalBody,
+    handleChange,
+    SignalRowData,
+  } = settingStore();
+  const length1 = SignalBodyDatas.length;
+  // console.log(SignalRowData)
+  // console.log(Datas)
+  const styles = styledItem();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddSignalsOpen, setIsAddSignalsOpen] = useState(false);
   const [rows, setRows] = useState([]);
 
   function Clicked() {
-    const currentDate = new Date();
-    const time = currentDate.toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: "true",
-    });
-    const day = currentDate.toLocaleString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-
-    dispatch(
-      addSignalBody({
-        signal: inputRef.current.value,
-        cday: day,
-        ctime: time,
-        mtime: time,
-        mday: day,
-        status: 1,
-      })
-    );
+    addSignalBody();
     setIsAddSignalsOpen(false);
   }
 
   const inputRef = useRef();
-
-  const AddSignalsDrawerForm = () => {
-    return (
-      <StyledFormControl component="form">
-        <StyledInputLabel required>Name</StyledInputLabel>
-        <StyledTextField
-          placeholder="Type name"
-          size="small"
-          fullWidth
-          inputRef={inputRef}
-        ></StyledTextField>
-      </StyledFormControl>
-    );
-  };
 
   const [indexes, setIndexes] = useState(0);
   function HandleDialogIndex(index) {
@@ -71,7 +44,7 @@ function Signals() {
   return (
     <SignalsSectionContainer>
       <SignalsHeader>
-        <SignalsTitle>Signals ({BodyDatas.length})</SignalsTitle>
+        <SignalsTitle>Signals ({SignalBodyDatas.length})</SignalsTitle>
         <Searchbox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <AddButton
           onClick={() => {
@@ -82,9 +55,10 @@ function Signals() {
 
       <SignalTable
         searchQuery={searchQuery}
-        rowData={BodyDatas}
+        rowData={SignalBodyDatas}
         setRowData={setRows}
         Deactivate={HandleDialogIndex}
+        Heading={SignalHeadDatas}
       ></SignalTable>
 
       <StyledDrawer
@@ -97,7 +71,12 @@ function Signals() {
         }}
         open={isAddSignalsOpen}
       />
-      <DialogBox open={indexes} />
+      <DialogBox
+        open={indexes}
+        message="Are you sure, would you like to deactivate?"
+        Datas={SignalBodyDatas}
+        Page="SignalBodyDatas"
+      />
     </SignalsSectionContainer>
   );
 }
@@ -202,5 +181,41 @@ const Searchbox = ({ searchQuery, setSearchQuery }) => {
     </Box>
   );
 };
-
+const AddSignalsDrawerForm = () => {
+  const { handleChange, SignalRowData, SignalBodyDatas } = settingStore();
+  function handleSignalChange(value) {
+    const length1 = SignalBodyDatas.length;
+    const currentDate = new Date();
+    const time = currentDate.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: "true",
+    });
+    const day = currentDate.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+    handleChange("id", length1 + 1);
+    handleChange("signal", value);
+    handleChange("cday", day);
+    handleChange("ctime", time);
+    handleChange("mtime", time);
+    handleChange("mday", day);
+    handleChange("status", true);
+    handleChange("active", false);
+    handleChange("dialog", false);
+  }
+  return (
+    <StyledFormControl>
+      <StyledInputLabel required>Name</StyledInputLabel>
+      <StyledTextField
+        placeholder="Type name"
+        size="small"
+        fullWidth
+        onChange={(e) => handleSignalChange(e.target.value)}
+      ></StyledTextField>
+    </StyledFormControl>
+  );
+};
 export default Signals;

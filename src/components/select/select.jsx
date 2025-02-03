@@ -1,9 +1,11 @@
 import { Select, styled, Typography, useTheme } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-const StyledSelect = styled(({ placeholder, ...props }) => (
+const StyledSelect = styled(({ onChange, placeholder, inputRef, ...props }) => (
   <Select
     displayEmpty
+    onChange={onChange}
+    inputRef={inputRef}
     IconComponent={() => {
       const theme = useTheme();
       return (
@@ -16,14 +18,20 @@ const StyledSelect = styled(({ placeholder, ...props }) => (
         />
       );
     }}
-    renderValue={() => <Typography color="#C2C1C7">{placeholder}</Typography>}
+    renderValue={(selected) =>
+      selected && selected !== "" ? (
+        selected
+      ) : (
+        <Typography color="#C2C1C7">{placeholder}</Typography>
+      )
+    }
     {...props}
   />
 ))(({ theme }) => ({
   fontSize: theme.typography.fontSize.small,
   color: theme.palette.text.default,
   "& .MuiInputBase-input::placeholder": {
-    color: theme.palette.text.placeholder,
+    color: "black",
     opacity: 1,
   },
   "&.MuiOutlinedInput-root": {

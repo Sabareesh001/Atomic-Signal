@@ -29,23 +29,51 @@ import {
 
 import Table from "@mui/material/Table";
 import IOSSwitch from "../switch/switch";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StyledDrawer from "../drawer/drawer";
 import StyledTextField from "../textField/textField";
 import StyledTextArea from "../textArea/styledTextArea";
 import { EmSizeMWeight, MSizeRWeight } from "../typography/typography";
 import PencilIconSvg from "../../assets/icons/pencil";
+import IosSwitch from "../switch/iosSwitch";
+import settingStore from "../../zustand/settings/store";
 const DepartmentTableComponent = ({
   headings,
   rows,
   setRows,
   searchQuery = "",
+  Deactivate,
 }) => {
   const [filteredRows, setFilteredRows] = useState([]);
   const [currPage, setCurrPage] = useState(0);
   const [isEditMemberDrawerOpen, setIsEditMemberDrawerOpen] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [clicked, setClicked] = useState(true);
+  const [rowss, setRow] = useState(0);
+  const inputRef = useRef();
+  const [indexs, setIndexs] = useState(0);
   const [modifiedRows, setModifiedRows] = useState([]);
+  const replaceDepartmentRow = settingStore(
+    (state) => state.replaceDepartmentRow
+  );
+  const handleDepartmentActiveButton = settingStore(
+    (state) => state.handleDepartmentActiveButton
+  );
+  const DrawerForm = () => {
+    return (
+      <StyledFormControl>
+        <StyledInputLabel required>Name</StyledInputLabel>
+        <StyledTextField
+          placeholder="Type name"
+          size="small"
+          fullWidth
+          inputRef={inputRef}
+        ></StyledTextField>
+        <StyledInputLabel>Description</StyledInputLabel>
+        <StyledTextArea minRows={7} />
+      </StyledFormControl>
+    );
+  };
   useEffect(() => {
     setModifiedRows(
       rows?.filter((data) => {
@@ -66,6 +94,48 @@ const DepartmentTableComponent = ({
   useEffect(() => {
     setCurrPage(0);
   }, [rowsPerPage]);
+
+  function UpdateItem() {
+    const currentDate = new Date();
+    const time = currentDate.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: "true",
+    });
+    const day = currentDate.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+
+    replaceDepartmentRow({
+      oldItem: filteredRows[indexs].department,
+      newItem: inputRef.current.value,
+      day: day,
+      time: time,
+    });
+
+    setIsEditMemberDrawerOpen(false);
+  }
+  const handleToggleClick = (index, status, dialog) => {
+    const newClickedState = !clicked;
+    setClicked(newClickedState);
+    setRow(index);
+    if (dialog) {
+      handleDepartmentActiveButton({
+        oldItem: index + 1,
+        status: newClickedState,
+        active: status,
+        dialog: dialog,
+      });
+    } else {
+      handleDepartmentActiveButton({
+        oldItem: index + 1,
+        status: newClickedState,
+        active: status,
+      });
+    }
+  };
 
   return (
     <TableDiv>
@@ -93,35 +163,37 @@ const DepartmentTableComponent = ({
                     <MSizeRWeight content={row?.department} />
                   </StyledTableCell>
                   <StyledTableCell>
-                    <MSizeRWeight content={row?.created_on} />
+                    {row?.cday}, {row?.ctime}
                   </StyledTableCell>
                   <StyledTableCell>
-                    <MSizeRWeight content={row?.modified_on} />
+                    {row?.mday}, {row?.mtime}
                   </StyledTableCell>
                   <StyledTableCell minWidth={125}>
-                    <ActiveContainer>
-                      <IOSSwitch
-                        onChange={(e) => {
-                          setRows((prev) => {
-                            const newPrev = [...prev];
-                            const target = newPrev.findIndex(
-                              (data) => data?.id === row?.id
-                            );
-                            newPrev[target].status = e.target.checked ? 1 : 0;
-                            return newPrev;
-                          });
-                        }}
-                        checked={row?.status}
-                      />
-                      <MSizeRWeight
-                        content={row?.status ? "Active" : "Deactive"}
-                      />
-                    </ActiveContainer>
+                    <IosSwitch
+                      onclick={(dialog) => {
+                        if (row.status) {
+                          handleToggleClick(i, row.status, (dialog = true));
+                        } else {
+                          handleToggleClick(i, row.status, (dialog = false));
+                        }
+                        // setIndexs(i)
+                        Deactivate(i);
+                      }}
+                      checked={row.status}
+                    />{" "}
+                    {i === rowss
+                      ? row.status
+                        ? "Active"
+                        : "Deactive"
+                      : row.status
+                        ? "Active"
+                        : "Deactive"}
                   </StyledTableCell>
                   <StyledTableCell>
                     <PencilIconContainer>
                       <PencilIconSvg
                         onClick={() => {
+                          setIndexs(i);
                           setIsEditMemberDrawerOpen(true);
                         }}
                       />
@@ -157,28 +229,13 @@ const DepartmentTableComponent = ({
         title={"Edit Department"}
         content={<DrawerForm />}
         anchor={"right"}
-        bottomLeftButton={{ label: "Save", onClick: () => {} }}
+        bottomLeftButton={{ label: "Save", onClick: UpdateItem }}
         onClose={() => {
           setIsEditMemberDrawerOpen(false);
         }}
         open={isEditMemberDrawerOpen}
       />
     </TableDiv>
-  );
-};
-
-const DrawerForm = () => {
-  return (
-    <StyledFormControl>
-      <StyledInputLabel required>Name</StyledInputLabel>
-      <StyledTextField
-        placeholder="Type name"
-        size="small"
-        fullWidth
-      ></StyledTextField>
-      <StyledInputLabel>Description</StyledInputLabel>
-      <StyledTextArea minRows={7} />
-    </StyledFormControl>
   );
 };
 

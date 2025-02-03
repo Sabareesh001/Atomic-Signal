@@ -16,18 +16,23 @@ import {
   ImportIcon,
 } from "./team.styles";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StyledDrawer from "../../components/drawer/drawer";
 import FilterForm from "./filterForm";
-import AddMembersDrawerForm from "./addMemberForm";
-import ImportIconStyled from "../../assets/icons/import";
-import FilterSvg from "../../assets/icons/filter";
+import MembersDrawerForm from "./addMemberForm";
+import DialogBox from "../../components/dialogBox/dialogBox";
+import teamStore from "../../zustand/teams/store";
+
 const TeamPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
   const stickyHeadings = ["Actions"];
   const theme = useTheme();
+  const [indexes, setIndexes] = useState(0);
+
+  const { TeamRowDatas, handleAddTeamMemnber } = teamStore() || {};
+
   const [rowData, setRowData] = useState([
     {
       id: 40,
@@ -139,8 +144,17 @@ const TeamPage = () => {
         }),
     ]);
   }, []);
+  function HandleDialogIndex(index) {
+    setIndexes(index);
+    // console.log(index)
+  }
 
   const stickyColumnData = [["Im Sticky"]];
+
+  function Clicked() {
+    handleAddTeamMemnber();
+    // console.log(TeamRowDatas)
+  }
 
   return (
     <TeamMembersContainer>
@@ -215,21 +229,27 @@ const TeamPage = () => {
       <MembersTable
         stickyHeadings={stickyHeadings}
         searchQuery={searchQuery}
-        rowData={rowData}
+        rowData={TeamRowDatas}
         setRowData={setRowData}
         stickyColumnData={stickyColumnData}
+        Deactivate={HandleDialogIndex}
       />
       <StyledDrawer
         title={"Add member"}
         anchor={"right"}
-        content={<AddMembersDrawerForm />}
-        bottomLeftButton={{ label: "Add Member" }}
+        bottomLeftButton={{ label: "Add Member", onClick: Clicked }}
+        content={<MembersDrawerForm />}
         open={isAddMemberOpen}
         onClose={() => {
           setIsAddMemberOpen(false);
         }}
       />
-
+      <DialogBox
+        open={indexes}
+        message="Are you sure, would you like to deactivate Team Member?"
+        Datas={TeamRowDatas}
+        Page="TeamRowDatas"
+      />
       <StyledDrawer
         maxWidth={"450px"}
         title={"Filters"}

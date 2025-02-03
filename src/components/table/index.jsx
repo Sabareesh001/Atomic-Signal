@@ -23,14 +23,6 @@ const DepartmentTableHeadings = [
   "Status",
   "Action",
 ];
-const SignalTableHeadings = [
-  { heading: "S.No", position: "relative" },
-  { heading: "Signal name", position: "relative" },
-  { heading: "Created on", position: "relative" },
-  { heading: "Modified on", position: "relative" },
-  { heading: "Status", position: "relative" },
-  { heading: "Action", position: "sticky" },
-];
 
 const MembersTable = ({
   rowData,
@@ -38,6 +30,7 @@ const MembersTable = ({
   searchQuery = "",
   setRowData,
   stickyHeadings,
+  Deactivate,
 }) => {
   return (
     <MembersTableComponent
@@ -47,24 +40,32 @@ const MembersTable = ({
       setRows={setRowData}
       stickyColumnData={stickyColumnData}
       searchQuery={searchQuery}
+      Deactivate={Deactivate}
     />
   );
 };
 
-const DepartmentTable = ({ rowData, setRowData, searchQuery }) => (
+const DepartmentTable = ({ rowData, setRowData, searchQuery, Deactivate }) => (
   <DepartmentTableComponent
     rows={rowData}
     searchQuery={searchQuery}
     setRows={setRowData}
     headings={DepartmentTableHeadings}
+    Deactivate={Deactivate}
   />
 );
-const SignalTable = ({ rowData, setRowData, searchQuery, Deactivate }) => (
+const SignalTable = ({
+  rowData,
+  setRowData,
+  searchQuery,
+  Deactivate,
+  Heading,
+}) => (
   <SignalTableComponent
     rows={rowData}
     searchQuery={searchQuery}
     setRows={setRowData}
-    headings={SignalTableHeadings}
+    headings={Heading}
     Deactivate={Deactivate}
   />
 );

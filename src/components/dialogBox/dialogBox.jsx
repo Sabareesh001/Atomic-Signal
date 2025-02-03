@@ -2,78 +2,70 @@ import { Box, Dialog, DialogContent, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AlertIconSvg from "../../assets/icons/alerticon";
 import styled from "@emotion/styled";
-import { useDispatch, useSelector } from "react-redux";
-import { handleDeactiveBox } from "../../pages/setting/slices/signalsslice";
+import { styledItem } from "../../pages/setting/style";
+import settingStore from "../../zustand/settings/store";
+import teamStore from "../../zustand/teams/store";
 
-export default function DialogBox({ color, bgcolor, border, open }) {
-  const BodyDatas = useSelector((state) => state.signalsBody);
-  // console.log(OpenDialogBox.openDeactive)
-  const dispatch = useDispatch();
+export default function DialogBox({
+  color,
+  bgcolor,
+  border,
+  open,
+  message,
+  Datas,
+  Page,
+}) {
+  const {
+    handleDeactiveButton,
+    handleDepartmentDeactiveButton,
+    handleChange,
+    SignalRowData,
+  } = settingStore();
+  const { handleTeamDeactiveButton, handleTeamChange } = teamStore();
+
+  const styles = styledItem();
 
   const Button = styled(Box)({
-    padding: "0.313rem 0.938rem",
-    fontSize: "0.875rem",
-    fontFamily: "Poppins",
-    textTransform: "capitalize",
-    fontWeight: 500,
-    cursor: "pointer",
-    border: border,
+    ...styles.styledDialogBox,
     color: color,
-    borderRadius: "4px",
     backgroundColor: bgcolor,
-    lineHeight: 1.75,
+    border: border,
   });
-  function HandleDialogDeactivation(status) {
-    dispatch(
-      handleDeactiveBox({ status: status, index: open + 1, dialog: false })
-    );
+  function HandleDialogDeactivation() {
+    if (Page === "SignalBodyDatas") {
+      handleDeactiveButton(open + 1);
+    }
+    if (Page === "DepartmentBodyDatas") {
+      handleDepartmentDeactiveButton(open + 1);
+    }
+    if (Page === "TeamRowDatas") {
+      handleTeamDeactiveButton(open + 1);
+    }
   }
   const [opened, setOpened] = useState(true);
 
   return (
-    <Dialog
-      // onClose={onClose}
-      open={BodyDatas[open].dialog}
-    >
-      <DialogContent
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: { sm: "50px 48px", xs: "40px 30px" },
-          "@media (max-width: 325px)": {
-            padding: "40px 16px",
-          },
-        }}
-      >
-        <Box
-          sx={{ margin: " 0px 0px 24px 0px", height: "48px", width: "48px" }}
-        >
+    <Dialog open={Datas[open].dialog}>
+      <DialogContent sx={styles.styledDialogContent}>
+        <Box sx={styles.styledDialogContentBoxImage}>
           <AlertIconSvg />
         </Box>
         <Box sx={{ margin: " 0px 0px 32px 0px" }}>
-          <Typography
-            sx={{
-              textAlign: "center",
-              maxWidth: "304px",
-              color: "#353448",
-              fontSize: "16px",
-              fontFamily: "Poppins",
-            }}
-          >
-            Are you sure, would you like to Deactivate?
+          <Typography sx={styles.styledDialogContentBoxText}>
+            {message}
           </Typography>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "-webkit-fill-available",
-          }}
-        >
+        <Box sx={styles.styledDialogContentButtonBox}>
           <Button
             component="button"
-            onClick={() => HandleDialogDeactivation((status = false))}
+            onClick={() => {
+              handleChange("dialog", false);
+              handleChange("status", false);
+              handleTeamChange("dialog", false);
+              handleTeamChange("status", false);
+              console.log(SignalRowData);
+              HandleDialogDeactivation();
+            }}
             color={"rgb(73, 199, 146)"}
             bgcolor={"transparent"}
             border={"1.5px solid "}
@@ -86,7 +78,14 @@ export default function DialogBox({ color, bgcolor, border, open }) {
           </Button>
           <Button
             component="button"
-            onClick={() => HandleDialogDeactivation((status = true))}
+            onClick={() => {
+              handleChange("dialog", false);
+              handleChange("status", true);
+              handleTeamChange("dialog", false);
+              handleTeamChange("status", true);
+              console.log(SignalRowData);
+              HandleDialogDeactivation();
+            }}
             color={"rgb(255, 255, 255)"}
             bgcolor={"rgb(244, 79, 90)"}
             border={"1.5px solid "}

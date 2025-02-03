@@ -33,9 +33,10 @@ const StyledDrawer = styled(
         PaperProps={{
           sx: {
             minWidth: minWidth,
-            maxWidth,
+            maxWidth: "474px",
             backgroundColor: "transparent",
             boxShadow: "none",
+            width: "-webkit-fill-available",
           },
         }}
         {...props}
